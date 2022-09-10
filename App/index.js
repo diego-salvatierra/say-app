@@ -1,5 +1,5 @@
 import { StatusBar } from 'expo-status-bar';
-//import { StyleSheet, Text, SafeAreaView } from 'react-native';
+//import { StyleSheet, SafeAreaView, ScrollView} from 'react-native';
 import React, { useState, useEffect } from 'react';
 //import { Button } from '@rneui/base';
 import Words from './screens/Words'
@@ -51,16 +51,12 @@ function Home({navigation}) {
     idCounter++;   
   }
 
-  // console.log("initialWords are ", initialWords);
-
   // create state with initial array
   const [words, setWords] = useState(initialWords);
 
-  console.log("words are ", words);
-
   return (
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-      <Button onPress={() => navigation.navigate('Words')}>Words!</Button>
+      <Button onPress={() => navigation.navigate('Words', {words: words, setWords: setWords})}>Load words</Button>
     </View>
   )
 }
@@ -71,16 +67,23 @@ function Home({navigation}) {
 // native base button navigates to new screen using stack navigation DONE
 // Create state with 150 most common words DONE
 // Get an image for each word OR translation for hover LATER
-// Generate cards for each image-word pair 
+// Pass words to new card DONE
+// Generate cards for each image-word pair DONE
+// Make cards nicer DONE, scrollable DONE
+// Make cards randomized
+// Sort cards by type, three sections swipe 
+// Create drag and drop boxes
 // Drag and drop by category
 // Save sentence
-// Translate sentence with Google Translate API
 // Enhance sentence with double translate on Google Translate API
+// UI enhancements
 
+
+//CLEANUP
+
+// Remove Draggable
+// Solve child warning
 const Stack = createNativeStackNavigator();
-console.log("stack is ", Stack);
-
-
 
 export default function App() {
   return (
@@ -90,10 +93,6 @@ export default function App() {
       <Stack.Screen name="Home" component={Home} />
       <Stack.Screen name="Words" component={Words} />
     </Stack.Navigator>
-      <Box flex={1} bg="#fff" alignItems="center" justifyContent="center">
-        <StatusBar style="auto" />
-        <Button onPress={() => console.log("hello world")}>Click Me</Button>
-      </Box>
     </NativeBaseProvider>
     </NavigationContainer>
   );
