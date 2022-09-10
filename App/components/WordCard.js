@@ -17,10 +17,11 @@ const styles = StyleSheet.create({
 const WordCard = (word) => {
     return (
         <View style={{width : '25%'}}>
-            <Card>
-                <Text>{word.word}</Text>
-                <Text>{word.type}</Text>            
-            </Card>
+            <Draggable x={50} y={50}>
+                <Card>
+                    <Text>{word.word}</Text>
+                </Card>
+            </Draggable>
         </View>
     );
 };

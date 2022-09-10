@@ -78,6 +78,11 @@ function Home({navigation}) {
 // Enhance sentence with double translate on Google Translate API
 // UI enhancements
 
+
+//CLEANUP
+
+// Remove Draggable
+// Solve child warning
 const Stack = createNativeStackNavigator();
 
 export default function App() {
