@@ -1,13 +1,22 @@
-import React from "react";
-import { View, TouchableOpacity, useWindowDimensions, StyleSheet, ScrollView} from "react-native";
+import React, { useState, useEffect } from 'react';
+import { View, TouchableOpacity, useWindowDimensions, StyleSheet, ScrollView, Text} from "react-native";
 import { NavigationContainer } from '@react-navigation/native';
 import { NativeBaseProvider, Box, VStack, Divider, HStack, Icon} from 'native-base';
 import { Card } from "@rneui/themed";
 import WordCard from '../components/WordCard';
 import { TabView, SceneMap } from 'react-native-tab-view';
 import Draggable from 'react-native-draggable';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import { DraxProvider, DraxView, DraxList } from 'react-native-drax';
+import Sentence from "../screens/Sentence"
+import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
+import { Button } from "@rneui/themed";
+import DraggableWord from '../components/DraggableWord';
 
 export default ({ route }) => {
+    
+    // Set styles
+    const gestureRootViewStyle = { flex: 1 };
 
     const styles = StyleSheet.create({
         container: {
@@ -18,53 +27,62 @@ export default ({ route }) => {
             flexDirection: 'row',
             flexWrap: 'wrap',
             width: '33%'
-        }
+        },
+        draggable: {
+            width: 100,
+            height: 100,
+            backgroundColor: 'blue',
+        },
+        dragging: {
+            opacity: 0.1,
+        },
       })
     
+    // Import params
     const words = route.params.words;
     const setWords = route.params.setWords;
 
-    // filter words by type 
+    console.log("word is ", words[0])
 
-    var nouns = words.filter(obj => {
-        return obj.type === "noun"
-    })
+    // setup tab navigation
 
-    var verbs = words.filter(obj => {
-        return obj.type === "verb"
-    })
+    const Tab = createMaterialTopTabNavigator();
 
-    var adjectives = words.filter(obj => {
-        return obj.type === "adjective"
-    })
-
-    var subjects = words.filter(obj => {
-        return obj.type === "subject"
-    })
-
-    // create word tab sliders
+    // create word tab sliders filtered by type
 
     const NounRoute = () => (
         <View>
-            <ScrollView contentContainerStyle={styles.container}>{nouns.map((word) => WordCard(word))}</ScrollView>
+            <ScrollView contentContainerStyle={styles.container}>
+                {words.filter(obj => {return obj.type === "noun"})
+                .map((word) => DraggableWord(word))}
+            </ScrollView>
         </View>
     )
 
     const VerbRoute = () => (
         <View>
-            <ScrollView contentContainerStyle={styles.container}>{verbs.map((word) => WordCard(word))}</ScrollView>
+            <ScrollView contentContainerStyle={styles.container}>
+                {words.filter(obj => {return obj.type === "verb"})
+                .map((word) => DraggableWord(word))}
+            </ScrollView>
         </View>
     )
 
     const AdjectiveRoute = () => (
         <View>
-            <ScrollView contentContainerStyle={styles.container}>{adjectives.map((word) => WordCard(word))}</ScrollView>
+            <ScrollView contentContainerStyle={styles.container}>
+                {words.filter(obj => {return obj.type === "adjective"})
+                .map((word) => DraggableWord(word))}
+            </ScrollView>
         </View>
     )
 
     const SubjectRoute = () => (
         <View>
-            <ScrollView contentContainerStyle={styles.container}>{subjects.map((word) => WordCard(word))}</ScrollView>
+            <ScrollView contentContainerStyle={styles.container}>
+                {words.filter(obj => {return obj.type === "subject"})
+                .map((word) => DraggableWord(word))}
+            </ScrollView>
         </View>
     )
 
@@ -79,21 +97,34 @@ export default ({ route }) => {
 
     // tab router setup
 
-    const [index, setIndex] = React.useState(0);
+    /*const [index, setIndex] = React.useState(0);
     const [routes] = React.useState([
         { key: 'subjectScene', title: 'Subjects' },
         { key: 'verbScene', title: 'Verbs' },
         { key: 'adjectiveScene', title: 'Adjectives' },
         { key: 'nounScene', title: 'Nouns' },
-    ]);
+    ]);*/
+
+    const [showS, setShowS] = useState(false);
+    const [showV, setShowV] = useState(false);
+    const [showA, setShowA] = useState(false);
+    const [showN, setShowN] = useState(false);
 
     return (
-        <TabView
-        navigationState={{ index, routes }}
-        renderScene={renderScene}
-        onIndexChange={setIndex}
-        // initialLayout={initialLayout}
-        //style={styles.container}
-        />
+        <GestureHandlerRootView style={gestureRootViewStyle}>
+            <DraxProvider>
+                <View style={gestureRootViewStyle}>
+                    <Sentence/>
+                    <Button title={'Subjects'} onPress={() => setShowS(!showS) } />
+                    {showS && <SubjectRoute />}
+                    <Button title={'Verbs'} onPress={() => setShowV(!showV) } />
+                    {showV && <VerbRoute />}
+                    <Button title={'Adjectives'} onPress={() => setShowA(!showA) } />
+                    {showA && <AdjectiveRoute />}
+                    <Button title={'Nouns'} onPress={() => setShowN(!showN) } />
+                    {showN && <NounRoute />}
+                </View>
+            </DraxProvider>
+        </GestureHandlerRootView>
     )
 }
