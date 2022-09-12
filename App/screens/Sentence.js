@@ -3,30 +3,30 @@ import { Card } from "@rneui/themed";
 import { View, TouchableOpacity, ScrollView, StyleSheet } from "react-native";
 import { DraxProvider, DraxView, DraxList } from 'react-native-drax';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
-import DraggableWord from '../components/DraggableWord';
+import SentenceWord from '../components/SentenceWord';
 
-const Sentence = ({ word }) => {
+const Sentence = ({ words, setWords }) => {
 
     // Set initial empty sentence
 
     const sentenceInit = [
         {
-            "id": NaN,
+            "id": -1,
             "type": "subject",
             "word": "SUBJECT",
         },
         {
-            "id": NaN,
+            "id": -2,
             "type": "verb",
             "word": "VERB",
         },
         {
-            "id": NaN,
+            "id": -3,
             "type": "adjective",
             "word": "ADJECTIVE",
         },
         {
-            "id": NaN,
+            "id": -4,
             "type": "noun",
             "word": "NOUN",
         }  
@@ -59,7 +59,7 @@ const Sentence = ({ word }) => {
     return (
         <View>
             <ScrollView contentContainerStyle={styles.container}>
-                {sentence.map((word) => DraggableWord(word))}
+                {sentence.map((word, index) => SentenceWord(word, index, words, setWords, sentence, setSentence))}
             </ScrollView>
         </View>
     )

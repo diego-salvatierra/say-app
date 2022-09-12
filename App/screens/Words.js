@@ -114,7 +114,7 @@ export default ({ route }) => {
         <GestureHandlerRootView style={gestureRootViewStyle}>
             <DraxProvider>
                 <View style={gestureRootViewStyle}>
-                    <Sentence/>
+                    <Sentence words={words} setWords={setWords}/>
                     <Button title={'Subjects'} onPress={() => setShowS(!showS) } />
                     {showS && <SubjectRoute />}
                     <Button title={'Verbs'} onPress={() => setShowV(!showV) } />

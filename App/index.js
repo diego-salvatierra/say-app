@@ -83,12 +83,16 @@ function Home({navigation}) {
 /// https://medium.com/nerd-for-tech/drag-drop-and-swap-between-two-lists-using-react-native-d864dab43aa9
 // Create general words state DONE
 // Drag and drop boxes DONE
-// Connect boxes to dragged words
+// Connect boxes to dragged words DONE
+// Set limits by word type for dragging
 // Save sentence automatically, make it snappy
 // Enhance sentence with double translate on Google Translate API
 // UI enhancements
+/// Boxes close and open, proper buttons
 /// Swipe by category
 /// Colors and styling
+// Edge cases cleanup
+/// Subjects and nouns interchangeable
 
 
 //CLEANUP
