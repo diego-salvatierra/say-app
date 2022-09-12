@@ -18,6 +18,15 @@ const DraggableWord = (word) => {
                 console.log('word being dragged is ', word.word);
             }}
             payload= { word }
+            onReceiveDragEnter={({ dragged: { payload } }) => {
+                console.log(`hello ${payload}`);
+            }}
+            onReceiveDragExit={({ dragged: { payload } }) => {
+                console.log(`goodbye ${payload}`);
+            }}
+            onReceiveDragDrop={({ dragged: { payload } }) => {
+                console.log(`received ${payload}`);
+            }}
         >
             <WordCard
                 word = { word }
