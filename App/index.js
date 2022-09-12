@@ -8,6 +8,11 @@ import { NativeBaseProvider, Text, Box } from 'native-base';
 import 'react-native-gesture-handler';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import Draggable from 'react-native-draggable';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import { DraxProvider, DraxView, DraxList } from 'react-native-drax';
+import Sentence from "./screens/Sentence"
+
 
 
 // data structure: one dict? array of objects? three arrays?
@@ -56,7 +61,9 @@ function Home({navigation}) {
 
   return (
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-      <Button onPress={() => navigation.navigate('Words', {words: words, setWords: setWords})}>Load words</Button>
+      <Draggable>
+        <Button onPress={() => navigation.navigate('Words', {words: words, setWords: setWords})}>Load words</Button>
+      </Draggable>
     </View>
   )
 }
@@ -71,12 +78,17 @@ function Home({navigation}) {
 // Generate cards for each image-word pair DONE
 // Make cards nicer DONE, scrollable DONE
 // Make cards randomized
-// Sort cards by type, three sections swipe 
-// Create drag and drop boxes
-// Drag and drop by category
-// Save sentence
+// Sort cards by type, three sections swipe DONE 
+// Create drag and drop boxes DONE
+/// https://medium.com/nerd-for-tech/drag-drop-and-swap-between-two-lists-using-react-native-d864dab43aa9
+// Create general words state DONE
+// Drag and drop boxes DONE
+// Connect boxes to dragged words
+// Save sentence automatically, make it snappy
 // Enhance sentence with double translate on Google Translate API
 // UI enhancements
+/// Swipe by category
+/// Colors and styling
 
 
 //CLEANUP
