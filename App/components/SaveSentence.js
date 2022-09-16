@@ -39,16 +39,19 @@ const SaveSentence = ({ sentence }) => {
     }
 
     const concatSentence = () => {
-        console.log("sentence is ", sentence)
-        console.log("savedSentence is ", savedSentence)
         var midSentence = "";
         for (let i = 0; i < sentence.length; i++) {
-            midSentence.concat(sentence[i].word);
-            console.log("midSentence is ", midSentence);
+            if (sentence[i].id >= 0) {
+                midSentence = midSentence.concat(sentence[i].word, " ");
+            }
         }
         setSavedSentence(midSentence);
-        console.log("savedSentence is NOW ", savedSentence)
+        console.log("savedSentence is ", savedSentence);
     }
+
+    /*useEffect(() => {
+            alert("Your sentence is " + savedSentence)
+    })*/
 
     return (
         <View style={styles.parent}>
