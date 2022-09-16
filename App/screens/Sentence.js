@@ -4,6 +4,7 @@ import { View, TouchableOpacity, ScrollView, StyleSheet } from "react-native";
 import { DraxProvider, DraxView, DraxList } from 'react-native-drax';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import SentenceWord from '../components/SentenceWord';
+import SaveSentence from '../components/SaveSentence';
 
 const Sentence = ({ words, setWords }) => {
 
@@ -58,6 +59,7 @@ const Sentence = ({ words, setWords }) => {
 
     return (
         <View>
+            <SaveSentence sentence={sentence}/>
             <ScrollView contentContainerStyle={styles.container}>
                 {sentence.map((word, index) => SentenceWord(word, index, words, setWords, sentence, setSentence))}
             </ScrollView>
