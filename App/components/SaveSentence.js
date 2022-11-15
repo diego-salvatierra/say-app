@@ -2,6 +2,8 @@ import { View, StyleSheet } from "react-native";
 import { Button } from "@rneui/themed";
 import Draggable from 'react-native-draggable';
 import React, { useState, useEffect } from 'react';
+import SentenceTest from "./SentenceTest";
+import SentenceFixer from "./SentenceFixer";
 
 const styles = StyleSheet.create({
     parent: {
@@ -21,6 +23,12 @@ const styles = StyleSheet.create({
 
 const SaveSentence = ({ sentence }) => {
 
+    /*useEffect(() => {
+            alert("Your sentence is " + savedSentence)
+    })*/
+
+    console.log("going into READY, sentence is ", sentence)
+
     const [sentenceReady, setSentenceReady] = useState(false);
     const [savedSentence, setSavedSentence] = useState("");
 
@@ -39,23 +47,26 @@ const SaveSentence = ({ sentence }) => {
     }
 
     const concatSentence = () => {
-        var midSentence = "";
-        for (let i = 0; i < sentence.length; i++) {
-            if (sentence[i].id >= 0) {
-                midSentence = midSentence.concat(sentence[i].word, " ");
+        if (sentenceReady===true) {
+            var midSentence = "";
+            for (let i = 0; i < sentence.length; i++) {
+                if (sentence[i].id >= 0) {
+                    midSentence = midSentence.concat(sentence[i].word, " ");
+                }
             }
+            setSavedSentence(midSentence);
+            console.log("savedSentence IS ", savedSentence);
         }
-        setSavedSentence(midSentence);
-        console.log("savedSentence is ", savedSentence);
     }
-
-    /*useEffect(() => {
-            alert("Your sentence is " + savedSentence)
-    })*/
+    let sentenceFix;
+    if (sentenceReady===true) {
+        sentenceFix = <SentenceFixer sentence={sentence}/>
+    }
 
     return (
         <View style={styles.parent}>
-            <Button  onPress={ () => {sentenceTest() ; concatSentence()}}>Save sentence</Button>
+            <Button  onPress={ () => {sentenceTest() ; concatSentence() } }>Ready</Button>
+            { sentenceFix }
         </View>
     );
 };

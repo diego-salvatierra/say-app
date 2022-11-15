@@ -10,22 +10,27 @@ const styles = StyleSheet.create({
     },
   })
 
-const SentenceWord = (word, index, words, setWords, sentence, setSentence) => {
-
+const SentenceWord = ({word, index, words, sentence, setSentence}) => {
+    console.log("word is ", word)
+    console.log("word.word is ", word.word)
+    console.log("index is ", index)
+    console.log("words is ", words)
+    console.log("sentence is ", sentence)
+    console.log("setSentence is ", setSentence)
     console.log("RENDERING SENTENCE")
     return (
         <DraxView
             draggingStyle={styles.dragging}
             onDragStart={() => {
-                console.log('word being dragged is ', word.word);
+                console.log('word being dragged is ', word);
             }}
-            payload= { word }
+            payload = { word }
             onReceiveDragEnter={({ dragged: { payload } }) => {
-                console.log(`hello ${payload}`);
+                console.log(`hello ${payload.word}`);
                 console.log("now entering box number ", index)
             }}
             onReceiveDragExit={({ dragged: { payload } }) => {
-                console.log(`goodbye ${payload}`);
+                console.log(`goodbye ${payload.word}`);
             }}
             // on drop, update states and re-render:
             onReceiveDragDrop={({ dragged: { payload } }) => {

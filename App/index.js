@@ -85,7 +85,12 @@ function Home({navigation}) {
 // Drag and drop boxes DONE
 // Connect boxes to dragged words DONE
 // Set limits by word type for dragging DONE
-// Save sentence automatically, make it snappy 
+// Sentence save button DONE
+// Sentence save button saves sentence to state ????
+// Improve Words code organization
+// Check bugs TODAY 
+// Save sentence automatically, make it snappy // SHOULD IT BE A USE-EFFECT? 
+// Check sentence and enable READY when complete
 // Enhance sentence with double translate on Google Translate API
 // UI enhancements
 /// Boxes close and open, proper buttons

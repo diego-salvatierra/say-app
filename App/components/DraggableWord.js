@@ -10,7 +10,7 @@ const styles = StyleSheet.create({
     },
   })
 
-const DraggableWord = (word) => {
+const DraggableWord = ({word}) => {
     return (
         <DraxView
             draggingStyle={styles.dragging}

@@ -42,7 +42,7 @@ export default ({ route }) => {
     const words = route.params.words;
     const setWords = route.params.setWords;
 
-    console.log("word is ", words[0])
+    //console.log("word is ", words[0])
 
     // setup tab navigation
 
@@ -54,7 +54,7 @@ export default ({ route }) => {
         <View>
             <ScrollView contentContainerStyle={styles.container}>
                 {words.filter(obj => {return obj.type === "noun"})
-                .map((word) => DraggableWord(word))}
+                .map((word) => <DraggableWord key = {word.id} word={word}/>)}
             </ScrollView>
         </View>
     )
@@ -63,7 +63,7 @@ export default ({ route }) => {
         <View>
             <ScrollView contentContainerStyle={styles.container}>
                 {words.filter(obj => {return obj.type === "verb"})
-                .map((word) => DraggableWord(word))}
+                .map((word) => <DraggableWord key = {word.id} word={word}/>)}
             </ScrollView>
         </View>
     )
@@ -72,7 +72,7 @@ export default ({ route }) => {
         <View>
             <ScrollView contentContainerStyle={styles.container}>
                 {words.filter(obj => {return obj.type === "adjective"})
-                .map((word) => DraggableWord(word))}
+                .map((word) => <DraggableWord key = {word.id} word={word}/>)}
             </ScrollView>
         </View>
     )
@@ -81,7 +81,7 @@ export default ({ route }) => {
         <View>
             <ScrollView contentContainerStyle={styles.container}>
                 {words.filter(obj => {return obj.type === "subject"})
-                .map((word) => DraggableWord(word))}
+                .map((word) => <DraggableWord key = {word.id} word={word}/>)}
             </ScrollView>
         </View>
     )
