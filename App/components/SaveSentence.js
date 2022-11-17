@@ -58,7 +58,8 @@ const SaveSentence = ({ sentence }) => {
             console.log("savedSentence IS ", savedSentence);
         }
     }
-    let sentenceFix;
+    let sentenceFix
+    
     if (sentenceReady===true) {
         sentenceFix = <SentenceFixer sentence={sentence}/>
     }
