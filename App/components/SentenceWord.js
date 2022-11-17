@@ -11,13 +11,6 @@ const styles = StyleSheet.create({
   })
 
 const SentenceWord = ({word, index, words, sentence, setSentence}) => {
-    console.log("word is ", word)
-    console.log("word.word is ", word.word)
-    console.log("index is ", index)
-    console.log("words is ", words)
-    console.log("sentence is ", sentence)
-    console.log("setSentence is ", setSentence)
-    console.log("RENDERING SENTENCE")
     return (
         <DraxView
             draggingStyle={styles.dragging}

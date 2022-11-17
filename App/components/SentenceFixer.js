@@ -15,63 +15,89 @@ const SentenceFixer = ({ sentence }) => {
         console.log("building sentence ", sentenceFixInit)
     }
 
+    console.log("sentenceFixInit is ", sentenceFixInit)
+
     const [fixedSentence, setFixedSentence] = useState(sentenceFixInit); 
     const [intermediateSent, setIntermediateSent] = useState(sentenceFixInit);
+    const [callUrl, setCallUrl] = useState("");
+
+    console.log("fixedSentence is ", fixedSentence)
 
 
     // Google Translate API one way
 
-    let fromLang = 'en';
-    let toLang = 'es'; // translate to Spanish
+    useEffect(() => {
+      console.log("Fixing sentence ", sentenceFixInit)
+      
 
-    const API_KEY = "AIzaSyAJ1-ryN8FFi1IqqUI9QZ4PSGO9MiUOkY4"
+      const fixSentence = async () => {
+        try {
+          let fromLang = 'en';
+          let toLang = 'de'; // translate to Spanish
 
-    let url = `https://translation.googleapis.com/language/translate/v2?key=${API_KEY}`;
-    url += '&q=' + encodeURI(fixedSentence);
-    url += `&source=${fromLang}`;
-    url += `&target=${toLang}`;
+          const API_KEY = "AIzaSyAJ1-ryN8FFi1IqqUI9QZ4PSGO9MiUOkY4"
 
-    fetch(url, { 
-        method: 'GET',
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json"
+          let url = `https://translation.googleapis.com/language/translate/v2?key=${API_KEY}`;
+          url += '&q=' + encodeURI(sentenceFixInit);
+          url += `&source=${fromLang}`;
+          url += `&target=${toLang}`;
+
+          const result1 = await fetch(url, { 
+              method: 'GET',
+              headers: {
+                "Content-Type": "application/json",
+                Accept: "application/json"
+              }
+            })
+          .then(res => res.json())
+          .then((response) => {
+              console.log("response from google GO: ", response.data.translations[0].translatedText);
+              console.log("intermediateSent INSIDE 1 is ", intermediateSent)
+              setIntermediateSent(response.data.translations[0].translatedText) // set to intermediate sentence state
+              console.log("intermediateSent INSIDE 2 is ", intermediateSent)
+            })
+          .catch(error => {
+              console.log("There was an error with the translation request: ", error);
+          });
+
+          // Google Translate API return sentence
+
+          fromLang = 'de';
+          toLang = 'en'; // translate back to English
+
+          console.log("intermediateSent OUTSIDE is ", intermediateSent)
+
+          url = `https://translation.googleapis.com/language/translate/v2?key=${API_KEY}`;
+          url += '&q=' + encodeURI(intermediateSent);
+          url += `&source=${fromLang}`;
+          url += `&target=${toLang}`;
+
+          console.log("url is ", url)
+
+          setCallUrl(url)
+
+          const result2 = await fetch(callUrl, { 
+              method: 'GET',
+              headers: {
+                "Content-Type": "application/json",
+                Accept: "application/json"
+              }
+            })
+          .then(res => res.json())
+          .then((response) => {
+              console.log("response from google BACK: ", response.data.translations[0].translatedText);
+              setFixedSentence(response.data.translations[0].translatedText)
+            })
+          .catch(error => {
+              console.log("There was an error with the translation request: ", error);
+          });
+        } catch (error) {
+          console.log(error);
         }
-      })
-    .then(res => res.json())
-    .then((response) => {
-        console.log("response from google GO: ", response);
-        setIntermediateSent(response) // set to intermediate sentence state
-      })
-    .catch(error => {
-        console.log("There was an error with the translation request: ", error);
-    });
-
-    // Google Translate API return sentence
-
-    fromLang = 'es';
-    toLang = 'en'; // translate back to English
-    let text = 'hello world';
-
-    url += '&q=' + encodeURI(intermediateSent);
-    url += `&source=${fromLang}`;
-    url += `&target=${toLang}`;
-
-    fetch(url, { 
-        method: 'GET',
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json"
-        }
-      })
-    .then(res => res.json())
-    .then((response) => {
-        console.log("response from google BACK: ", response);
-        setFixedSentence(response.data.translations.translatedText)
-      })
-    .catch(error => {
-        console.log("There was an error with the translation request: ", error);
-    });
+    }
+    fixSentence()
+    },
+    [fixedSentence, intermediateSent, callUrl])
 
     /*
 
