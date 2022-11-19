@@ -12,8 +12,29 @@ import Sentence from "../screens/Sentence"
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import { Button } from "@rneui/themed";
 import DraggableWord from '../components/DraggableWord';
+import TabRow from '../components/TabRow';
+
 
 export default ({ route }) => {
+
+    // set up the tab navigator
+
+    const [tab, setTab] = useState("Subjects")
+
+    const page = () => {
+        switch (tab) {
+            case 'Subjects':
+                return <SubjectRoute />
+            case 'Verbs':
+                return <VerbRoute/>
+            case 'Adjectives':
+                return <AdjectiveRoute />
+            case 'Nouns':
+                return <NounRoute />
+            default:
+                return <SubjectRoute />
+        }
+    }
     
     // Set styles
     const gestureRootViewStyle = { flex: 1 };
@@ -47,6 +68,8 @@ export default ({ route }) => {
     // setup tab navigation
 
     const Tab = createMaterialTopTabNavigator();
+
+    console.log("screen is ", Tab.Screen.name)
 
     // create word tab sliders filtered by type
 
@@ -115,14 +138,12 @@ export default ({ route }) => {
             <DraxProvider>
                 <View style={gestureRootViewStyle}>
                     <Sentence words={words} setWords={setWords}/>
-                    <Button title={'Subjects'} onPress={() => setShowS(!showS) } />
-                    {showS && <SubjectRoute />}
-                    <Button title={'Verbs'} onPress={() => setShowV(!showV) } />
-                    {showV && <VerbRoute />}
-                    <Button title={'Adjectives'} onPress={() => setShowA(!showA) } />
-                    {showA && <AdjectiveRoute />}
-                    <Button title={'Nouns'} onPress={() => setShowN(!showN) } />
-                    {showN && <NounRoute />}
+                    <Tab.Navigator>
+                        <Tab.Screen name="Subjects" component={SubjectRoute} />
+                        <Tab.Screen name="Verbs" component={VerbRoute} />
+                        <Tab.Screen name="Adjectives" component={AdjectiveRoute} />
+                        <Tab.Screen name="Nouns" component={NounRoute} />
+                    </Tab.Navigator>
                 </View>
             </DraxProvider>
         </GestureHandlerRootView>

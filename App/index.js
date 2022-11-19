@@ -15,6 +15,7 @@ import Sentence from "./screens/Sentence"
 
 
 
+
 // data structure: one dict? array of objects? three arrays?
 
 
@@ -86,15 +87,21 @@ function Home({navigation}) {
 // Connect boxes to dragged words DONE
 // Set limits by word type for dragging DONE
 // Sentence save button DONE
-// Sentence save button saves sentence to state ????
+// Sentence save button saves sentence to state DONE
 // Improve Words code organization
-// Check bugs TODAY 
-// Save sentence automatically, make it snappy // SHOULD IT BE A USE-EFFECT? 
-// Check sentence and enable READY when complete
-// Enhance sentence with double translate on Google Translate API
+// Check bugs DONE 
+// Save sentence automatically, make it snappy // SHOULD IT BE A USE-EFFECT? NOT PRIORITY
+// Check sentence and enable READY when complete DONE
+// Enhance sentence with double translate on Google Translate API DONE
+// Fix decode bug DONE
+// Containerize 
+// Initial Figma
+// Bug: drag off on scrolling
+// Bug: Ready button should refresh sentence
+// Save and view phrasebook
 // UI enhancements
 /// Boxes close and open, proper buttons
-/// Swipe by category
+/// Swipe by category DONE
 /// Colors and styling
 // Edge cases cleanup
 /// Subjects and nouns interchangeable
@@ -104,6 +111,11 @@ function Home({navigation}) {
 
 // Remove Draggable
 // Solve child warning
+
+// LIBRARIES
+/// react-native-drax
+/// html-entities
+
 const Stack = createNativeStackNavigator();
 
 export default function App() {

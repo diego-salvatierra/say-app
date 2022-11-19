@@ -7,10 +7,16 @@ const WordCard = ( {word} ) => {
     return (
         <View style={{width : '100%'}}>
             <Card>
-                <Text>{word.word}</Text>
+                <Text style={styles.text}>{word.word}</Text>
             </Card>
         </View>
     );
 };
+
+const styles = StyleSheet.create({
+    text: {
+        fontSize: 14,
+    },
+})
 
 export default WordCard
