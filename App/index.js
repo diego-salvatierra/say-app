@@ -89,6 +89,8 @@ function Home({navigation}) {
 // Sentence save button DONE
 // Sentence save button saves sentence to state DONE
 // Improve Words code organization
+// Sentence navigation???
+// Shuffle on word double tap???
 // Check bugs DONE 
 // Save sentence automatically, make it snappy // SHOULD IT BE A USE-EFFECT? NOT PRIORITY
 // Check sentence and enable READY when complete DONE
