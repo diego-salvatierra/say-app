@@ -20,8 +20,6 @@ const WordMenu = ({ state, navigation }) => {
 
   // Used SVG to be able to change the color of the icons exported from Figma.
   const icon = (pageName, currentIndex) => {
-    console.log("pageName is ", pageName)
-    console.log("currentIndex is ", currentIndex)
     if (pageName === 'Subjects') return <PersonIcon fill={color(pageName, currentIndex)} />
     if (pageName === 'Verbs') return <RunnerIcon fill={color(pageName, currentIndex)} />
     if (pageName === 'Adjectives') return <IdentityIcon fill={color(pageName, currentIndex)} />

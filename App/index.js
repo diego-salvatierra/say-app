@@ -108,9 +108,10 @@ function Home({navigation}) {
 // Enhance sentence with double translate on Google Translate API DONE
 // Fix decode bug DONE
 // Containerize 
-// Initial Figma
+// Initial Figma DONE
 // Bug: drag off on scrolling
-// Switch to Spanish
+// Switch to Spanish DONE
+// New navigation DONE
 // Add logo
 // Bug: Ready button should refresh sentence
 // Save and view phrasebook
