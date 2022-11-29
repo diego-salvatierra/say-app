@@ -41,6 +41,8 @@ const Sentence = ({ words, setWords }) => {
         container: {
             flexDirection: 'row',
             flexWrap: 'wrap',
+            borderColor: 'black',
+            borderWidth: 1,
         },
         item: {
             flexDirection: 'row',

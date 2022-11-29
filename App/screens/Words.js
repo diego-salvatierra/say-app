@@ -13,6 +13,7 @@ import { createMaterialTopTabNavigator } from '@react-navigation/material-top-ta
 import { Button } from "@rneui/themed";
 import DraggableWord from '../components/DraggableWord';
 import TabRow from '../components/TabRow';
+import WordMenu from '../components/WordMenu';
 
 
 export default ({ route }) => {
@@ -138,7 +139,10 @@ export default ({ route }) => {
             <DraxProvider>
                 <View style={gestureRootViewStyle}>
                     <Sentence words={words} setWords={setWords}/>
-                    <Tab.Navigator>
+                    <Tab.Navigator
+                        tabBar={props => <WordMenu {...props} />}
+                        initialRouteName={'Nouns'} 
+                    >
                         <Tab.Screen name="Subjects" component={SubjectRoute} />
                         <Tab.Screen name="Verbs" component={VerbRoute} />
                         <Tab.Screen name="Adjectives" component={AdjectiveRoute} />

@@ -33,8 +33,8 @@ const SentenceFixer = ({ sentence }) => {
 
       const fixSentence = async () => {
         try {
-          let fromLang = 'en';
-          let toLang = 'de'; // translate to Spanish
+          let fromLang = 'es';
+          let toLang = 'pt'; // translate to Portuguese
 
           const API_KEY = "AIzaSyAJ1-ryN8FFi1IqqUI9QZ4PSGO9MiUOkY4"
 
@@ -42,7 +42,7 @@ const SentenceFixer = ({ sentence }) => {
           url += '&q=' + encodeURI(sentenceFixInit);
           url += `&source=${fromLang}`;
           url += `&target=${toLang}`;
-
+          
           const result1 = await fetch(url, { 
               method: 'GET',
               headers: {
@@ -63,8 +63,8 @@ const SentenceFixer = ({ sentence }) => {
 
           // Google Translate API return sentence
 
-          fromLang = 'de';
-          toLang = 'en'; // translate back to English
+          fromLang = 'pt';
+          toLang = 'es'; // translate back to Spanish
 
           console.log("intermediateSent OUTSIDE is ", intermediateSent)
 
