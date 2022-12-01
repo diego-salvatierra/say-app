@@ -1,5 +1,5 @@
 import { StatusBar } from 'expo-status-bar';
-//import { StyleSheet, SafeAreaView, ScrollView} from 'react-native';
+import { StyleSheet } from 'react-native';
 import React, { useState, useEffect } from 'react';
 //import { Button } from '@rneui/base';
 import Words from './screens/Words'
@@ -12,6 +12,7 @@ import Draggable from 'react-native-draggable';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { DraxProvider, DraxView, DraxList } from 'react-native-drax';
 import Sentence from "./screens/Sentence"
+import Header from './components/Header';
 
 
 
@@ -112,7 +113,7 @@ function Home({navigation}) {
 // Bug: drag off on scrolling
 // Switch to Spanish DONE
 // New navigation DONE
-// Add logo
+// Add logo 
 // Bug: Ready button should refresh sentence
 // Save and view phrasebook
 // UI enhancements TODAY
@@ -140,7 +141,8 @@ export default function App() {
   return (
     <NavigationContainer>
     <NativeBaseProvider>
-    <Stack.Navigator>
+    <Header />
+    <Stack.Navigator> 
       <Stack.Screen name="Home" component={Home} />
       <Stack.Screen name="Words" component={Words} />
     </Stack.Navigator>
@@ -152,8 +154,10 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: 'black',
     alignItems: 'center',
     justifyContent: 'center',
+    borderColor: 'red',
+    borderWidth: 5,
   },
 })

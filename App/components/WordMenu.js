@@ -31,7 +31,7 @@ const WordMenu = ({ state, navigation }) => {
     const isFocused = state.index === index; // Checks if the current page is the same as the page in the array 
     return (
     <Pressable
-        key={`footer-${index}`}
+        key={`wordmenu-${index}`}
         style={styles.button}
         
         onPress={() => {

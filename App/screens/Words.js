@@ -14,6 +14,7 @@ import { Button } from "@rneui/themed";
 import DraggableWord from '../components/DraggableWord';
 import TabRow from '../components/TabRow';
 import WordMenu from '../components/WordMenu';
+import Header from '../components/Header';
 
 
 export default ({ route }) => {
@@ -138,6 +139,7 @@ export default ({ route }) => {
         <GestureHandlerRootView style={gestureRootViewStyle}>
             <DraxProvider>
                 <View style={gestureRootViewStyle}>
+                    <Header />
                     <Sentence words={words} setWords={setWords}/>
                     <Tab.Navigator
                         tabBar={props => <WordMenu {...props} />}
