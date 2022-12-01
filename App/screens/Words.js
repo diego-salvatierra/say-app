@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, TouchableOpacity, useWindowDimensions, StyleSheet, ScrollView, Text} from "react-native";
+import { Dimensions, View, TouchableOpacity, useWindowDimensions, StyleSheet, ScrollView, Text} from "react-native";
 import { NavigationContainer } from '@react-navigation/native';
 import { NativeBaseProvider, Box, VStack, Divider, HStack, Icon} from 'native-base';
 import { Card } from "@rneui/themed";
@@ -15,7 +15,12 @@ import DraggableWord from '../components/DraggableWord';
 import TabRow from '../components/TabRow';
 import WordMenu from '../components/WordMenu';
 import Header from '../components/Header';
+import { LinearGradient } from 'expo-linear-gradient'
 
+const PAGE_WIDTH = Dimensions.get('window').width;
+const PAGE_HEIGHT = Dimensions.get('window').height;
+
+console.log("PAGE_HEIGHT", PAGE_HEIGHT)
 
 export default ({ route }) => {
 
@@ -42,9 +47,10 @@ export default ({ route }) => {
     const gestureRootViewStyle = { flex: 1 };
 
     const styles = StyleSheet.create({
-        container: {
+        wordContainer: {
             flexDirection: 'row',
             flexWrap: 'wrap',
+            backgroundColor: 'rgba(0, 0, 0, 0)',
         },
         item: {
             flexDirection: 'row',
@@ -58,6 +64,14 @@ export default ({ route }) => {
         },
         dragging: {
             opacity: 0.1,
+        },
+
+        linearGradient: {
+            position: 'absolute',
+            height: PAGE_HEIGHT,
+            left: 0,
+            right: 0,
+            top: 0,    
         },
       })
     
@@ -77,7 +91,7 @@ export default ({ route }) => {
 
     const NounRoute = () => (
         <View>
-            <ScrollView contentContainerStyle={styles.container}>
+            <ScrollView contentContainerStyle={styles.wordContainer}>
                 {words.filter(obj => {return obj.type === "noun"})
                 .map((word) => <DraggableWord key = {word.id} word={word}/>)}
             </ScrollView>
@@ -86,7 +100,7 @@ export default ({ route }) => {
 
     const VerbRoute = () => (
         <View>
-            <ScrollView contentContainerStyle={styles.container}>
+            <ScrollView contentContainerStyle={styles.wordContainer}>
                 {words.filter(obj => {return obj.type === "verb"})
                 .map((word) => <DraggableWord key = {word.id} word={word}/>)}
             </ScrollView>
@@ -95,7 +109,7 @@ export default ({ route }) => {
 
     const AdjectiveRoute = () => (
         <View>
-            <ScrollView contentContainerStyle={styles.container}>
+            <ScrollView contentContainerStyle={styles.wordContainer}>
                 {words.filter(obj => {return obj.type === "adjective"})
                 .map((word) => <DraggableWord key = {word.id} word={word}/>)}
             </ScrollView>
@@ -104,7 +118,7 @@ export default ({ route }) => {
 
     const SubjectRoute = () => (
         <View>
-            <ScrollView contentContainerStyle={styles.container}>
+            <ScrollView contentContainerStyle={styles.wordContainer}>
                 {words.filter(obj => {return obj.type === "subject"})
                 .map((word) => <DraggableWord key = {word.id} word={word}/>)}
             </ScrollView>
@@ -139,11 +153,17 @@ export default ({ route }) => {
         <GestureHandlerRootView style={gestureRootViewStyle}>
             <DraxProvider>
                 <View style={gestureRootViewStyle}>
+                    <LinearGradient 
+                        colors={['#9F00B9', '#FFDC61']}
+                        locations={[0, .99]}
+                        style={styles.linearGradient}
+                    />
                     <Header />
                     <Sentence words={words} setWords={setWords}/>
                     <Tab.Navigator
-                        tabBar={props => <WordMenu {...props} />}
-                        initialRouteName={'Nouns'} 
+                    tabBar={props => <WordMenu {...props} />}
+                    initialRouteName={'Subjects'} 
+                    sceneContainerStyle={{backgroundColor: 'transparent'}}
                     >
                         <Tab.Screen name="Subjects" component={SubjectRoute} />
                         <Tab.Screen name="Verbs" component={VerbRoute} />

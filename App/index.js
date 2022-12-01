@@ -140,7 +140,7 @@ const Stack = createNativeStackNavigator();
 export default function App() {
   return (
     <NavigationContainer>
-    <NativeBaseProvider>
+    <NativeBaseProvider style={styles.container}>
     <Header />
     <Stack.Navigator> 
       <Stack.Screen name="Home" component={Home} />
@@ -157,7 +157,5 @@ const styles = StyleSheet.create({
     backgroundColor: 'black',
     alignItems: 'center',
     justifyContent: 'center',
-    borderColor: 'red',
-    borderWidth: 5,
   },
 })
