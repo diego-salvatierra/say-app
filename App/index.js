@@ -107,7 +107,7 @@ function Home({navigation}) {
 // Check sentence and enable READY when complete DONE
 // Enhance sentence with double translate on Google Translate API DONE
 // Fix decode bug DONE
-// Containerize 
+// Containerize TODAY
 // Initial Figma DONE
 // Bug: drag off on scrolling
 // Switch to Spanish DONE
@@ -115,8 +115,9 @@ function Home({navigation}) {
 // Add logo
 // Bug: Ready button should refresh sentence
 // Save and view phrasebook
-// UI enhancements
-/// Boxes close and open, proper buttons
+// UI enhancements TODAY
+/// Boxes close and open, proper buttons TODAY
+/// Unfilled boxes styling TODAY
 /// Swipe by category DONE
 /// Colors and styling
 // Edge cases cleanup
@@ -134,6 +135,7 @@ function Home({navigation}) {
 
 const Stack = createNativeStackNavigator();
 
+// add linear gradient to navigation container 
 export default function App() {
   return (
     <NavigationContainer>
@@ -147,11 +149,11 @@ export default function App() {
   );
 }
 
-/* const styles = StyleSheet.create({
+const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
   },
-}); */
+})
