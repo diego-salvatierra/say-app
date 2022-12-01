@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet } from "react-native";
-import {decode} from 'html-entities'
+import { View, Text, StyleSheet, TextInput} from "react-native";
+import { Button } from "@rneui/themed"
 
 // SHOULD ONLY RUN WHEN READY
 
@@ -18,12 +18,79 @@ const SentenceFixer = ({ sentence }) => {
 
     console.log("sentenceFixInit is ", sentenceFixInit)
 
-    const [fixedSentence, setFixedSentence] = useState(sentenceFixInit); 
-    const [intermediateSent, setIntermediateSent] = useState(sentenceFixInit);
-    const [callUrl, setCallUrl] = useState("");
+    const [sentenceInput, setSentenceInput] = useState(sentenceFixInit); 
+    const [result, setResult] = useState();
+  
+    console.log("sentenceInput is ", sentenceInput)
 
-    console.log("fixedSentence is ", fixedSentence)
+    async function fixSentence() {
+      console.log("entering fixSentence() ")
+      try {
+        let response = await fetch('../api/generate.js', {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ sentence: sentenceInput }),
+        })
+        let data = await response.json();
+        console.log("data returned is ", data)
+        setResult(data.result)
+        return data
+      } 
+      catch (error) {
+        console.error(error);
+      }    
 
+    // EARLIER TRY 
+    /*
+
+    const [lessonInput, setLessonInput] = useState("");
+    const [result, setResult] = useState();
+    // OLD KEY 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
+    async function onPress(event) {
+      console.log("INSIDE API")
+      event.preventDefault();
+      const response = await fetch("/api/generate", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ lesson: lessonInput }),
+      });
+      const data = await response.json();
+      setResult(data.result);
+      setLessonInput("");
+    }
+     */
+
+
+      /*console.log("entering fixSentence() ")
+      console.log("within fixSentence, sentenceInput is ", sentenceInput)
+      const response = await fetch("../api/generate", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ sentence: sentenceInput }),
+      });
+      const data = await response.json();
+      setResult(data.result);
+      setSentenceInput("");*/
+    }
+
+
+    return (
+        <View>
+          <Button  onPress={fixSentence}>GPT3</Button>
+          <Text> { result } </Text>
+        </View>
+    )
+}
+
+export default SentenceFixer
+
+/*
 
     // Google Translate API one way
 
@@ -99,12 +166,4 @@ const SentenceFixer = ({ sentence }) => {
     fixSentence()
     },
     [fixedSentence, intermediateSent, callUrl])
-
-    return (
-        <View>
-            <Text> { fixedSentence } </Text>
-        </View>
-    )
-}
-
-export default SentenceFixer
+*/

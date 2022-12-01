@@ -10,7 +10,7 @@ const styles = StyleSheet.create({
     },
   })
 
-const SentenceWord = ({word, index, words, sentence, setSentence}) => {
+const SentenceWord = ({word, index, words, sentence, setSentence, forward, setForward}) => {
     return (
         <DraxView
             draggingStyle={styles.dragging}
@@ -28,6 +28,21 @@ const SentenceWord = ({word, index, words, sentence, setSentence}) => {
             // on drop, update states and re-render:
             onReceiveDragDrop={({ dragged: { payload } }) => {
                 console.log("word box type is ", word.type)
+
+                // NAVIGATE TO NEXT WORD SET
+
+                if (word.type === "subject") {
+                    setForward("Verbs")
+                }
+
+                if (word.type === "verb") {
+                    setForward("Adjectives")
+                }
+
+                if (word.type === "adjective") {
+                    setForward("Nouns")
+                }
+
                 console.log("received in SW ", payload);
                 if (payload.type === word.type) {
                     let selected_item = words.filter(obj => {return obj.id === payload.id})[0];

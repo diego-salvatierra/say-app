@@ -113,12 +113,14 @@ function Home({navigation}) {
 // Bug: drag off on scrolling
 // Switch to Spanish DONE
 // New navigation DONE
-// Add logo 
+// Add logo DONE
 // Bug: Ready button should refresh sentence
 // Save and view phrasebook
+// Integrate GPT3 TODAY
 // UI enhancements TODAY
-/// Boxes close and open, proper buttons TODAY
+/// Boxes close and open, proper buttons DONE
 /// Unfilled boxes styling TODAY
+/// New word cards 
 /// Swipe by category DONE
 /// Colors and styling
 // Edge cases cleanup

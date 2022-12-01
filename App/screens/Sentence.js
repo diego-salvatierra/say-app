@@ -6,7 +6,7 @@ import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import SentenceWord from '../components/SentenceWord';
 import SaveSentence from '../components/SaveSentence';
 
-const Sentence = ({ words, setWords }) => {
+const Sentence = ({ words, setWords, forward, setForward}) => {
 
     // Set initial empty sentence
 
@@ -96,7 +96,16 @@ const Sentence = ({ words, setWords }) => {
             <ScrollView contentContainerStyle={styles.container}>
                 {(sentence || []).map(
                     (word, index) => (
-                        <SentenceWord key={index} word={word} index={index} words={words} sentence={sentence} setSentence={setSentence}/>
+                        <SentenceWord 
+                            key={index} 
+                            word={word} 
+                            index={index} 
+                            words={words} 
+                            sentence={sentence} 
+                            setSentence={setSentence}
+                            forward={forward} 
+                            setForward={setForward}
+                        />
                     ))
                 }
             </ScrollView>

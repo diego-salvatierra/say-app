@@ -135,19 +135,8 @@ export default ({ route }) => {
       });
 
     // tab router setup
-
-    /*const [index, setIndex] = React.useState(0);
-    const [routes] = React.useState([
-        { key: 'subjectScene', title: 'Subjects' },
-        { key: 'verbScene', title: 'Verbs' },
-        { key: 'adjectiveScene', title: 'Adjectives' },
-        { key: 'nounScene', title: 'Nouns' },
-    ]);*/
-
-    const [showS, setShowS] = useState(false);
-    const [showV, setShowV] = useState(false);
-    const [showA, setShowA] = useState(false);
-    const [showN, setShowN] = useState(false);
+    
+    const [forward, setForward] = useState("");
 
     return (
         <GestureHandlerRootView style={gestureRootViewStyle}>
@@ -159,9 +148,9 @@ export default ({ route }) => {
                         style={styles.linearGradient}
                     />
                     <Header />
-                    <Sentence words={words} setWords={setWords}/>
+                    <Sentence words={words} setWords={setWords} forward={forward} setForward={setForward}/>
                     <Tab.Navigator
-                    tabBar={props => <WordMenu {...props} />}
+                    tabBar={props => <WordMenu {...props} forward={forward} setForward ={setForward}/>}
                     initialRouteName={'Subjects'} 
                     sceneContainerStyle={{backgroundColor: 'transparent'}}
                     >
