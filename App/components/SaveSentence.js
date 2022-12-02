@@ -7,6 +7,7 @@ import SentenceFixer from "./SentenceFixer";
 
 const styles = StyleSheet.create({
     parent: {
+        flexDirection: 'row',
         justifyContent: 'center',
         alignItems: 'center',
         position: 'relative',
@@ -60,13 +61,16 @@ const SaveSentence = ({ sentence }) => {
     }
     let sentenceFix
     
+    if (sentenceReady===false) {
+        sentenceFix = <Button buttonStyle={{ backgroundColor: '#FFC107' }} onPress={ () => {sentenceTest() ; concatSentence() } }>Ready</Button>
+    }
+
     if (sentenceReady===true) {
         sentenceFix = <SentenceFixer sentence={sentence}/>
     }
 
     return (
         <View style={styles.parent}>
-            <Button  onPress={ () => {sentenceTest() ; concatSentence() } }>Ready</Button>
             { sentenceFix }
         </View>
     );

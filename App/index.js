@@ -13,9 +13,10 @@ import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { DraxProvider, DraxView, DraxList } from 'react-native-drax';
 import Sentence from "./screens/Sentence"
 import Header from './components/Header';
+/*import * as dotenv from 'dotenv' 
+import express from 'express'
 
-
-
+dotenv.config() */
 
 // data structure: one dict? array of objects? three arrays?
 
