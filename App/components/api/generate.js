@@ -1,15 +1,17 @@
 import { Configuration, OpenAIApi } from "openai";
+import 'react-native-url-polyfill/auto'
 
 console.log("entered API")
 
 const configuration = new Configuration({
-  apiKey: process.env.OPENAI_API_KEY,
+  apiKey: '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',
 });
 
 const openai = new OpenAIApi(configuration);
 
 export default async function (req, res) {
   console.log("ENTERING API")
+  console.log("REQUEST IS ", req.body.sentence)
   const completion = await openai.createCompletion({
     model: "text-davinci-002",
     prompt: generatePrompt(req.body.sentence),

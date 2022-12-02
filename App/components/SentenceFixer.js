@@ -1,6 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, TextInput} from "react-native";
 import { Button } from "@rneui/themed"
+import { Configuration, OpenAIApi } from "openai";
+import 'react-native-url-polyfill/auto'
+
+// Set up GPT3
+const configuration = new Configuration({
+  apiKey: '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',
+});
+const openai = new OpenAIApi(configuration);
 
 // SHOULD ONLY RUN WHEN READY
 
@@ -23,6 +31,24 @@ const SentenceFixer = ({ sentence }) => {
   
     console.log("sentenceInput is ", sentenceInput)
 
+    const testFetch = () => {
+      console.log("entering testFetch")
+      openai.createCompletion({
+        model: "text-davinci-002",
+        prompt: "correct soy el princesa in spanish",
+        temperature: 0.6,
+      }).then(response => console.log("response is ", response))
+      /*
+      fetch("/api/generate", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ sentence: "soy el princesa" }),
+      })
+      */
+    } 
+
     async function fixSentence() {
       console.log("entering fixSentence() ")
       try {
@@ -31,7 +57,7 @@ const SentenceFixer = ({ sentence }) => {
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({ sentence: sentenceInput }),
+          body: JSON.stringify({ sentence: "soy el princesa" }),
         })
         let data = await response.json();
         console.log("data returned is ", data)
@@ -82,7 +108,7 @@ const SentenceFixer = ({ sentence }) => {
 
     return (
         <View>
-          <Button  onPress={fixSentence}>GPT3</Button>
+          <Button  onPress={testFetch}>GPT3</Button>
           <Text> { result } </Text>
         </View>
     )
