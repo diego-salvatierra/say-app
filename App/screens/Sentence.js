@@ -41,6 +41,7 @@ const Sentence = ({ words, setWords, forward, setForward}) => {
         container: {
             flexDirection: 'row',
             flexWrap: 'wrap',
+            paddingLeft: 10,
         },
         item: {
             flexDirection: 'row',

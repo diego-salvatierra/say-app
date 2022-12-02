@@ -44,13 +44,21 @@ export default ({ route }) => {
     }
     
     // Set styles
-    const gestureRootViewStyle = { flex: 1 };
+    //const gestureRootViewStyle = { flex: 1 };
 
     const styles = StyleSheet.create({
+        gestureRootViewStyle: {
+            flex: 1,
+            flexDirection: 'column',
+            justifyContent: 'center',
+            //alignItems: 'center',
+            display: 'flex',
+        },
         wordContainer: {
             flexDirection: 'row',
             flexWrap: 'wrap',
             backgroundColor: 'rgba(0, 0, 0, 0)',
+            paddingLeft: 10,
         },
         item: {
             flexDirection: 'row',
@@ -139,9 +147,9 @@ export default ({ route }) => {
     const [forward, setForward] = useState("");
 
     return (
-        <GestureHandlerRootView style={gestureRootViewStyle}>
+        <GestureHandlerRootView style={styles.gestureRootViewStyle}>
             <DraxProvider>
-                <View style={gestureRootViewStyle}>
+                <View style={styles.gestureRootViewStyle}>
                     <LinearGradient 
                         colors={['#9F00B9', '#FFDC61']}
                         locations={[0, .99]}

@@ -28,7 +28,7 @@ const DraggableWord = ({word}) => {
                 console.log(`received ${payload}`);
             }}
         >
-            <WordCard
+            <WordCard style={[{borderColor: '#FFC107'}]}
                 word = { word }
             />
         </DraxView>

@@ -6,16 +6,37 @@ import { DraxProvider, DraxView } from 'react-native-drax';
 const WordCard = ( {word} ) => {
     return (
         <View style={{width : '100%'}}>
-            <Card>
+            <TouchableOpacity style={styles.wordCard}>
                 <Text style={styles.text}>{word.word}</Text>
-            </Card>
+            </TouchableOpacity>
         </View>
     );
 };
 
 const styles = StyleSheet.create({
+    wordCard: {
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center',
+        paddingHorizontal: 0,
+        paddingVertical: 0,
+        borderColor: '#FFC107',
+        backgroundColor: '#FFFFFF',
+        borderWidth: 1,
+        borderRadius: 10,
+        position: 'relative',
+        width: 72,
+        height: 54,
+        margin: 10,
+    }, 
     text: {
-        fontSize: 14,
+        fontSize: 12,
+        height: 13,
+        display: 'flex',
+        alignItems: 'center',
+        textAlign: 'center',
+        color: '#030303',
+        
     },
 })
 

@@ -8,6 +8,9 @@ const styles = StyleSheet.create({
     dragging: {
         opacity: 0.1,
     },
+    sentenceWord: {
+        borderColor: '#030303',
+    },
   })
 
 const SentenceWord = ({word, index, words, sentence, setSentence, forward, setForward}) => {
@@ -60,7 +63,7 @@ const SentenceWord = ({word, index, words, sentence, setSentence, forward, setFo
             }}
         >
             <WordCard
-                word = { word }
+                word = { word } style={styles.sentenceWord}
             />
         </DraxView>
     )
