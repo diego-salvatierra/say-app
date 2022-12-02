@@ -19,6 +19,7 @@
     "@rneui/base": "^4.0.0-rc.5",
     "@rneui/themed": "^4.0.0-rc.5",
     "child_process": "^1.0.2",
+    "dotenv": "^16.0.3",
     "events": "^3.3.0",
     "expo": "^45.0.8",
     "expo-cli": "^6.0.8",

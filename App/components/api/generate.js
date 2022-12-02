@@ -4,7 +4,7 @@ import 'react-native-url-polyfill/auto'
 console.log("entered API")
 
 const configuration = new Configuration({
-  apiKey: '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',
+  apiKey: process.env.OPENAI_API_KEY
 });
 
 const openai = new OpenAIApi(configuration);
