@@ -7,7 +7,7 @@ import 'react-native-url-polyfill/auto'
 
 // Set up GPT3
 const configuration = new Configuration({
-  apiKey: "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",
+  apiKey: "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",
 });
 const openai = new OpenAIApi(configuration);
 
