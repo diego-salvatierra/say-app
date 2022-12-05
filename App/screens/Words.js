@@ -7,7 +7,7 @@ import WordCard from '../components/WordCard';
 import { TabView, SceneMap } from 'react-native-tab-view';
 import Draggable from 'react-native-draggable';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
-import { DraxProvider, DraxView, DraxList } from 'react-native-drax';
+import { DraxProvider, DraxScrollView } from 'react-native-drax';
 import Sentence from "../screens/Sentence"
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import { Button } from "@rneui/themed";
@@ -99,37 +99,37 @@ export default ({ route }) => {
 
     const NounRoute = () => (
         <View>
-            <ScrollView contentContainerStyle={styles.wordContainer}>
+            <DraxScrollView contentContainerStyle={styles.wordContainer}>
                 {words.filter(obj => {return obj.type === "noun"})
                 .map((word) => <DraggableWord key = {word.id} word={word}/>)}
-            </ScrollView>
+            </DraxScrollView>
         </View>
     )
 
     const VerbRoute = () => (
         <View>
-            <ScrollView contentContainerStyle={styles.wordContainer}>
+            <DraxScrollView contentContainerStyle={styles.wordContainer}>
                 {words.filter(obj => {return obj.type === "verb"})
                 .map((word) => <DraggableWord key = {word.id} word={word}/>)}
-            </ScrollView>
+            </DraxScrollView>
         </View>
     )
 
     const AdjectiveRoute = () => (
         <View>
-            <ScrollView contentContainerStyle={styles.wordContainer}>
+            <DraxScrollView contentContainerStyle={styles.wordContainer}>
                 {words.filter(obj => {return obj.type === "adjective"})
                 .map((word) => <DraggableWord key = {word.id} word={word}/>)}
-            </ScrollView>
+            </DraxScrollView>
         </View>
     )
 
     const SubjectRoute = () => (
         <View>
-            <ScrollView contentContainerStyle={styles.wordContainer}>
+            <DraxScrollView contentContainerStyle={styles.wordContainer}>
                 {words.filter(obj => {return obj.type === "subject"})
                 .map((word) => <DraggableWord key = {word.id} word={word}/>)}
-            </ScrollView>
+            </DraxScrollView>
         </View>
     )
 

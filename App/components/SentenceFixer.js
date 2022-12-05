@@ -3,15 +3,15 @@ import { View, Text, StyleSheet, TextInput} from "react-native";
 import { Button } from "@rneui/themed"
 import { Configuration, OpenAIApi } from "openai";
 import 'react-native-url-polyfill/auto'
-// import {OPENAI_API_KEY} from "@env"
+import { OPENAI_API_KEY } from "react-native-dotenv"
 
 // Set up GPT3
 const configuration = new Configuration({
-  apiKey: "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",
+  apiKey: OPENAI_API_KEY,
 });
 const openai = new OpenAIApi(configuration);
 
-//console.log("key is ", OPENAI_API_KEY)
+console.log("key is ", OPENAI_API_KEY)
 
 // SHOULD ONLY RUN WHEN READY
 
