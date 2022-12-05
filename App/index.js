@@ -109,21 +109,25 @@ function Home({navigation}) {
 // Check sentence and enable READY when complete DONE
 // Enhance sentence with double translate on Google Translate API DONE
 // Fix decode bug DONE
-// Containerize TODAY
+// Containerize DONE
 // Initial Figma DONE
-// Bug: drag off on scrolling
+// Bug: drag off on scrolling DONE
 // Switch to Spanish DONE
 // New navigation DONE
 // Add logo DONE
 // Bug: Ready button should refresh sentence
-// Save and view phrasebook
-// Integrate GPT3 TODAY
-// UI enhancements TODAY
+// Save sentences  TODAY
+// View phrasebook 
+// Say! button 
+// Say! button AI
+// GPT3 chat response
+// Integrate GPT3 DONE
+// UI enhancements DONE
 /// Boxes close and open, proper buttons DONE
-/// Unfilled boxes styling TODAY
-/// New word cards 
+/// Unfilled boxes styling 
+/// New word cards DONE
 /// Swipe by category DONE
-/// Colors and styling
+/// Colors and styling DONE
 // Edge cases cleanup
 /// Subjects and nouns interchangeable
 
