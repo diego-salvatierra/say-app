@@ -22,7 +22,7 @@ const styles = StyleSheet.create({
     }
 })
 
-const SaveSentence = ({ sentence }) => {
+const SaveSentence = ({ sentence, setText}) => {
 
     /*useEffect(() => {
             alert("Your sentence is " + savedSentence)
@@ -66,7 +66,7 @@ const SaveSentence = ({ sentence }) => {
     }
 
     if (sentenceReady===true) {
-        sentenceFix = <SentenceFixer sentence={sentence}/>
+        sentenceFix = <SentenceFixer sentence={sentence} setText={setText}/>
     }
 
     return (

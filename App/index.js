@@ -126,7 +126,7 @@ function Home({navigation}) {
 // Add logo DONE
 // Bug: Ready button should refresh sentence
 // Save sentences  TODAY
-// Add translations to words TODAY
+// Add translations to words DONE
 // View phrasebook 
 // Say! button 
 // Say! button AI

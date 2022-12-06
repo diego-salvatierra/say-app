@@ -6,16 +6,19 @@ import 'react-native-url-polyfill/auto'
 import { OPENAI_API_KEY } from "react-native-dotenv"
 
 // Set up GPT3
-const configuration = new Configuration({
-  apiKey: OPENAI_API_KEY,
-});
-const openai = new OpenAIApi(configuration);
 
 console.log("key is ", OPENAI_API_KEY)
 
+const configuration = new Configuration({
+  apiKey: OPENAI_API_KEY,
+});
+
+const openai = new OpenAIApi(configuration);
+
+
 // SHOULD ONLY RUN WHEN READY
 
-const SentenceFixer = ({ sentence }) => {
+const SentenceFixer = ({ sentence, setText}) => {
 
     console.log("within fixer, sentence is ", sentence)
 
@@ -39,18 +42,13 @@ const SentenceFixer = ({ sentence }) => {
         model: "text-davinci-002",
         prompt: `correct the grammar of the following Spanish sentence: ${sentenceInput}`,
         temperature: 0,
-      }).then(response => setResult(response.data.choices[0].text))
+      }).then(response => setText(response.data.choices[0].text.trim()))
     } 
 
     return (
-        <View>
           <View style={styles.buttons}>
             <Button buttonStyle={{ backgroundColor: '#FFC107' }} onPress={fixSentence}>GPT3</Button>
           </View>
-          <View style={styles.textContainer}>
-            <Text style={styles.text}> { result } </Text>
-          </View>
-        </View>
     )
 }
 
@@ -59,17 +57,11 @@ const styles = StyleSheet.create({
       flexDirection: 'row',
       justifyContent: 'center',
       alignItems: 'center',
-      paddingTop: 10,
+      paddingTop: 0,
       paddingBottom: 0,
     },
     button: {
       backgroundColor: 'white',
-    },
-    textContainer: {
-      flexDirection: 'row',
-      justifyContent: 'center',
-      paddingTop: 0,
-      paddingBottom: 10,
     },
     text: {
         fontSize: 14,

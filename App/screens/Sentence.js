@@ -1,12 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import { Card, Switch } from "@rneui/themed";
-import { View, TouchableOpacity, ScrollView, StyleSheet } from "react-native";
+import { View, Text, TouchableOpacity, ScrollView, StyleSheet } from "react-native";
 import { DraxProvider, DraxView, DraxList } from 'react-native-drax';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import SentenceWord from '../components/SentenceWord';
 import SaveSentence from '../components/SaveSentence';
 
 const Sentence = ({ words, setWords, forward, setForward, translations, setTranslations}) => {
+
+    // Set instructions
+
+    const [text, setText] = useState("Drag the words to build your sentence")
 
     // Set initial empty sentence
 
@@ -42,6 +46,32 @@ const Sentence = ({ words, setWords, forward, setForward, translations, setTrans
             flexDirection: 'row',
             flexWrap: 'wrap',
             paddingLeft: 10,
+        },
+        topContainer: {
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+        },
+        buttonContainer: {
+            flex: 1.8,
+            flexDirection: 'row',
+            justifyContent: 'flex-end',
+        },
+        switchContainer: {
+            flex: 1,
+            flexDirection: 'row',
+            justifyContent: 'flex-end',
+            paddingRight: 40,
+        },
+        textContainer: {
+            flexDirection: 'row',
+            justifyContent: 'center',
+            alignItems: 'center',
+            padding: 10,
+        },
+        text: {
+            fontSize: 20,
+            color: 'white',
         },
         item: {
             flexDirection: 'row',
@@ -93,11 +123,21 @@ const Sentence = ({ words, setWords, forward, setForward, translations, setTrans
 
     return (
         <View>
-            <SaveSentence sentence={sentence}/>
-            <Switch
-                value={translations}
-                onValueChange={(value) => setTranslations(value)}
-            />
+            <View style={styles.topContainer}>
+                <View style={styles.buttonContainer}>
+                    <SaveSentence sentence={sentence} setText={setText}/>
+                </View>
+                <View style={styles.switchContainer}>
+                    <Switch
+                        value={translations}
+                        color={'#FFC107'}
+                        onValueChange={(value) => setTranslations(value)}
+                    />
+                </View>              
+            </View>
+            <View style={styles.textContainer}>
+                <Text style={styles.text}>{text}</Text>
+            </View>
             <ScrollView contentContainerStyle={styles.container}>
                 {(sentence || []).map(
                     (word, index) => (
