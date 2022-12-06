@@ -8,6 +8,7 @@ const WordCard = ( {word} ) => {
         <View style={{width : '100%'}}>
             <TouchableOpacity style={styles.wordCard}>
                 <Text style={styles.text}>{word.word}</Text>
+                <Text style={styles.textLight}>{word.translation}</Text>
             </TouchableOpacity>
         </View>
     );
@@ -36,6 +37,16 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         textAlign: 'center',
         color: '#030303',
+        
+    },
+    textLight: {
+        fontSize: 10,
+        height: 13,
+        display: 'flex',
+        alignItems: 'center',
+        textAlign: 'center',
+        color: '#B7B7B7',
+        marginTop: 10,
         
     },
 })

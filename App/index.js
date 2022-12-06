@@ -46,27 +46,36 @@ function Home({navigation}) {
   
   var adjectives = ["malo","mejor","mejor","grande","negro","seguro","claro","diferente","temprano","fácil","económico","libre","completo","bueno","grande","duro","alto","humano","importante","internacional","grande","tarde","pequeño","local","largo","bajo","importante","militar","mío","nacional","nuevo","viejo","solo","otro","político","posible","público","real","reciente","derecho","pequeño","social","especial","fuerte","seguro","verdadero","blanco","completo","joven"]
   
+  // English versions:
+
+  var nounsEng = ["water", "air", "ring", "animal", "art", "flag", "boat", "kiss", "bed", "field", "sky", "ribbon", "food", "rope", "finger", "money", "school", "flower", "fruit", "grain", "man", "hour", "church", "book", "light", "hand", "map", "table", "world", "woman", "music", "nose", "snow", "paper", "umbrella", "parka", "cake", "hair", "pizza", "door", "clock", "rock", "salt", "chair", "hat", "floor", "cup", "earth", "tiger", "tower", "window", "wind"]
   
+  var subjectsEng =   ["I","you","he","they","we","she","who","them","me","him","one","her","us","something","nothing","anything","himself","everything","someone","themselves","everyone","itself","anyone","myself"]
+
+  var verbsEng = ['be', 'stay', 'have', 'love', 'make', 'say', 'go', 'see', 'be able to', 'want', 'carry', 'know', 'bring', 'owe', 'come', 'have', 'speak', 'look for', 'call', 'pass', 'raise', 'catch', 'leave', 'find', 'enter', 'save', 'like', 'matter', 'play', 'maintain', 'look', 'ride', 'need', 'happen', 'offer', 'ask', 'allow', 'put', 'try', 'follow', 'feel', 'serve', 'happen', 'finish', 'try', 'result']  
+
+  var adjectivesEng = ["bad", "better", "better", "big", "black", "safe", "clear", "different", "early", "easy", "economic", "free", "full", "good", "big", "hard", "high", "human", "important", "international", "big", "late", "small", "local", "long", "low", "important", "military", "mine", "national", "new", "old", "only", "other", "political", "possible", "public", "real", "recent", "right", "small", "social", "special", "strong", "safe", "true", "white", "full", "young"]
+
   const initialWords = [];
 
   // add words to initial array
   for (var i=0; i<nouns.length; i++) {
-    initialWords.push({id: idCounter, word: nouns[i], type:"noun"});
+    initialWords.push({id: idCounter, word: nouns[i], type:"noun", translation: nounsEng[i]});
     idCounter++;  
   }
 
   for (var i=0; i<verbs.length; i++) {
-    initialWords.push({id: idCounter, word: verbs[i], type:"verb"}); 
+    initialWords.push({id: idCounter, word: verbs[i], type:"verb", translation: verbsEng[i]}); 
     idCounter++;   
   }
 
   for (var i=0; i<subjects.length; i++) {
-    initialWords.push({id: idCounter, word: subjects[i], type:"subject"}); 
+    initialWords.push({id: idCounter, word: subjects[i], type:"subject", translation: subjectsEng[i]}); 
     idCounter++;   
   }
 
   for (var i=0; i<adjectives.length; i++) {
-    initialWords.push({id: idCounter, word: adjectives[i], type:"adjective"}); 
+    initialWords.push({id: idCounter, word: adjectives[i], type:"adjective", translation: adjectivesEng[i]}); 
     idCounter++;   
   }
 
@@ -117,6 +126,7 @@ function Home({navigation}) {
 // Add logo DONE
 // Bug: Ready button should refresh sentence
 // Save sentences  TODAY
+// Add translations to words TODAY
 // View phrasebook 
 // Say! button 
 // Say! button AI
