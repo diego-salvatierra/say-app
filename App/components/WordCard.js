@@ -3,12 +3,26 @@ import { View, TouchableOpacity, Button, Text, StyleSheet} from "react-native";
 import { Card } from "@rneui/themed";
 import { DraxProvider, DraxView } from 'react-native-drax';
 
-const WordCard = ( {word} ) => {
+const WordCard = ( {word, translations} ) => {
+
+    const WordTranslations = () => {
+        if (translations === true) {
+            return (
+                <Text style={styles.textLight}>{word.translation}</Text>
+            )
+        }
+        else {
+            return (
+                null
+            )
+        }
+    }
+
     return (
         <View style={{width : '100%'}}>
             <TouchableOpacity style={styles.wordCard}>
                 <Text style={styles.text}>{word.word}</Text>
-                <Text style={styles.textLight}>{word.translation}</Text>
+                {WordTranslations()}
             </TouchableOpacity>
         </View>
     );

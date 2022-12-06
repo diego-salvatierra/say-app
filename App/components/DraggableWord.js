@@ -10,7 +10,7 @@ const styles = StyleSheet.create({
     },
   })
 
-const DraggableWord = ({word}) => {
+const DraggableWord = ({word, translations}) => {
     return (
         <DraxView
             draggingStyle={styles.dragging}
@@ -29,7 +29,8 @@ const DraggableWord = ({word}) => {
             }}
         >
             <WordCard style={[{borderColor: '#FFC107'}]}
-                word = { word }
+                word = { word } 
+                translations = { translations }
             />
         </DraxView>
     )

@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { Card } from "@rneui/themed";
+import { Card, Switch } from "@rneui/themed";
 import { View, TouchableOpacity, ScrollView, StyleSheet } from "react-native";
 import { DraxProvider, DraxView, DraxList } from 'react-native-drax';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import SentenceWord from '../components/SentenceWord';
 import SaveSentence from '../components/SaveSentence';
 
-const Sentence = ({ words, setWords, forward, setForward}) => {
+const Sentence = ({ words, setWords, forward, setForward, translations, setTranslations}) => {
 
     // Set initial empty sentence
 
@@ -94,6 +94,10 @@ const Sentence = ({ words, setWords, forward, setForward}) => {
     return (
         <View>
             <SaveSentence sentence={sentence}/>
+            <Switch
+                value={translations}
+                onValueChange={(value) => setTranslations(value)}
+            />
             <ScrollView contentContainerStyle={styles.container}>
                 {(sentence || []).map(
                     (word, index) => (

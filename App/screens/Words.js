@@ -24,6 +24,10 @@ console.log("PAGE_HEIGHT", PAGE_HEIGHT)
 
 export default ({ route }) => {
 
+    // set up translations toggle 
+
+    const [translations, setTranslations] = useState(true)
+
     // set up the tab navigator
 
     const [tab, setTab] = useState("Subjects")
@@ -101,7 +105,7 @@ export default ({ route }) => {
         <View>
             <DraxScrollView contentContainerStyle={styles.wordContainer}>
                 {words.filter(obj => {return obj.type === "noun"})
-                .map((word) => <DraggableWord key = {word.id} word={word}/>)}
+                .map((word) => <DraggableWord key = {word.id} word={word} translations={translations}/>)}
             </DraxScrollView>
         </View>
     )
@@ -110,7 +114,7 @@ export default ({ route }) => {
         <View>
             <DraxScrollView contentContainerStyle={styles.wordContainer}>
                 {words.filter(obj => {return obj.type === "verb"})
-                .map((word) => <DraggableWord key = {word.id} word={word}/>)}
+                .map((word) => <DraggableWord key = {word.id} word={word} translations={translations}/>)}
             </DraxScrollView>
         </View>
     )
@@ -119,7 +123,7 @@ export default ({ route }) => {
         <View>
             <DraxScrollView contentContainerStyle={styles.wordContainer}>
                 {words.filter(obj => {return obj.type === "adjective"})
-                .map((word) => <DraggableWord key = {word.id} word={word}/>)}
+                .map((word) => <DraggableWord key = {word.id} word={word} translations={translations}/>)}
             </DraxScrollView>
         </View>
     )
@@ -128,7 +132,7 @@ export default ({ route }) => {
         <View>
             <DraxScrollView contentContainerStyle={styles.wordContainer}>
                 {words.filter(obj => {return obj.type === "subject"})
-                .map((word) => <DraggableWord key = {word.id} word={word}/>)}
+                .map((word) => <DraggableWord key = {word.id} word={word} translations={translations}/>)}
             </DraxScrollView>
         </View>
     )
@@ -156,7 +160,14 @@ export default ({ route }) => {
                         style={styles.linearGradient}
                     />
                     <Header />
-                    <Sentence words={words} setWords={setWords} forward={forward} setForward={setForward}/>
+                    <Sentence 
+                        words={words} 
+                        setWords={setWords} 
+                        forward={forward} 
+                        setForward={setForward}
+                        translations={translations}
+                        setTranslations={setTranslations}
+                    />
                     <Tab.Navigator
                     tabBar={props => <WordMenu {...props} forward={forward} setForward ={setForward}/>}
                     initialRouteName={'Subjects'} 
