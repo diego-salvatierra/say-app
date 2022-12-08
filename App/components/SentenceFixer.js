@@ -47,7 +47,7 @@ const SentenceFixer = ({ sentence, setText}) => {
 
     return (
           <View style={styles.buttons}>
-            <Button buttonStyle={{ backgroundColor: '#FFC107' }} onPress={fixSentence}>GPT3</Button>
+            <Button buttonStyle={{ backgroundColor: '#FFC107' }} onPress={fixSentence}>Ready</Button>
           </View>
     )
 }

@@ -32,7 +32,7 @@ const SaveSentence = ({ sentence, setText}) => {
 
     const [sentenceReady, setSentenceReady] = useState(false);
     const [savedSentence, setSavedSentence] = useState("");
-
+    
     const sentenceTest = () => {
         // check to see three main boxes are full
         if ((sentence.some((element) => ((element.type==="noun") && (element.id >= 0)))) &&
@@ -46,7 +46,7 @@ const SaveSentence = ({ sentence, setText}) => {
             console.log("you are missing words")
         }
     }
-
+    
     const concatSentence = () => {
         if (sentenceReady===true) {
             var midSentence = "";
@@ -59,10 +59,16 @@ const SaveSentence = ({ sentence, setText}) => {
             console.log("savedSentence IS ", savedSentence);
         }
     }
+
+    useEffect(() => {
+        sentenceTest()
+        concatSentence()
+    }, [sentence])
+
     let sentenceFix
-    
+
     if (sentenceReady===false) {
-        sentenceFix = <Button buttonStyle={{ backgroundColor: '#FFC107' }} onPress={ () => {sentenceTest() ; concatSentence() } }>Ready</Button>
+        sentenceFix = <Button buttonStyle={{ backgroundColor: '#B7B7B7' }} onPress={ () => {alert("Add a few more words :) ") } }>Ready</Button>
     }
 
     if (sentenceReady===true) {

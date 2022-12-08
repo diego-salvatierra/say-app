@@ -14,6 +14,7 @@ import { DraxProvider, DraxView, DraxList } from 'react-native-drax';
 import Sentence from "./screens/Sentence"
 import Header from './components/Header';
 import Whisper from './whisper/Whisper';
+import LogIn from './screens/LogIn';
 /*import * as dotenv from 'dotenv' 
 import express from 'express'
 
@@ -86,8 +87,7 @@ function Home({navigation}) {
   return (
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
       <Draggable>
-        <Button onPress={() => navigation.navigate('Words', {words: words, setWords: setWords})}>Load Say</Button>
-        <Button onPress={() => navigation.navigate('Whisper')}>Load Whisper</Button>
+        <Button onPress={() => navigation.navigate('LogIn')}>Load Say</Button>
       </Draggable>
     </View>
   )
@@ -116,7 +116,7 @@ function Home({navigation}) {
 // Sentence navigation???
 // Shuffle on word double tap???
 // Check bugs DONE 
-// Save sentence automatically, make it snappy // SHOULD IT BE A USE-EFFECT? NOT PRIORITY
+// Save sentence automatically, make it snappy // TODAY
 // Check sentence and enable READY when complete DONE
 // Enhance sentence with double translate on Google Translate API DONE
 // Fix decode bug DONE
@@ -127,9 +127,13 @@ function Home({navigation}) {
 // New navigation DONE
 // Add logo DONE
 // Bug: Ready button should refresh sentence
-// Save sentences  TODAY
+// Integrate GPT3 to Ready button DONE
+// Save sentences TODAY
 // Add translations to words DONE
-// View phrasebook 
+// View phrasebook TODAY
+// Get whisper working DONE
+// Card colors by type 
+// GPT3 sentence coloring
 // Say! button 
 // Say! button AI
 // GPT3 chat response
@@ -163,7 +167,8 @@ export default function App() {
     <Header />
     <Stack.Navigator> 
       <Stack.Screen name="Home" component={Home} />
-      <Stack.Screen name="Words" component={Whisper} />
+      <Stack.Screen name="LogIn" component={LogIn} />
+      <Stack.Screen name="Words" component={Words} />
     </Stack.Navigator>
     </NativeBaseProvider>
     </NavigationContainer>
