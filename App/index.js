@@ -13,6 +13,7 @@ import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { DraxProvider, DraxView, DraxList } from 'react-native-drax';
 import Sentence from "./screens/Sentence"
 import Header from './components/Header';
+import Whisper from './whisper/Whisper';
 /*import * as dotenv from 'dotenv' 
 import express from 'express'
 
@@ -85,7 +86,8 @@ function Home({navigation}) {
   return (
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
       <Draggable>
-        <Button onPress={() => navigation.navigate('Words', {words: words, setWords: setWords})}>Load words</Button>
+        <Button onPress={() => navigation.navigate('Words', {words: words, setWords: setWords})}>Load Say</Button>
+        <Button onPress={() => navigation.navigate('Whisper')}>Load Whisper</Button>
       </Draggable>
     </View>
   )
@@ -161,7 +163,7 @@ export default function App() {
     <Header />
     <Stack.Navigator> 
       <Stack.Screen name="Home" component={Home} />
-      <Stack.Screen name="Words" component={Words} />
+      <Stack.Screen name="Words" component={Whisper} />
     </Stack.Navigator>
     </NativeBaseProvider>
     </NavigationContainer>
