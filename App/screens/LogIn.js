@@ -10,10 +10,29 @@ import {
  Image
 } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient'
+/*import {
+    GoogleSignin,
+    GoogleSigninButton,
+    statusCodes,
+  } from '@react-native-google-signin/google-signin';
+
+
+GoogleSignin.configure({
+    webClientId: '736298728107-43itc1mdgs26c4ps9b62hsqhl1bbsoa9.apps.googleusercontent.com',
+    offlineAccess: true,
+});
+
+async function googleSignIn() {
+    // get user ID token
+    const { idToken } = await GoogleSignin.signIn();
+    // create Google credential
+    const googleCredential = auth.GoogleAuthProvider.credential(idToken);
+    // sign in with credential
+    return auth().signInWithCredential(googleCredential);
+}*/
+
 
 const PAGE_HEIGHT = Dimensions.get('window').height;
-
-
 
 const LogIn = () => {
  return (        

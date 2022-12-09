@@ -87,7 +87,13 @@ function Home({navigation}) {
   return (
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
       <Draggable>
-        <Button onPress={() => navigation.navigate('LogIn')}>Load Say</Button>
+        <Button onPress={() => navigation.navigate('Words', {words: words, setWords: setWords})}>Load Say</Button>
+      </Draggable>
+      <Draggable>
+        <Button onPress={() => navigation.navigate('LogIn')}>Load SignIn</Button>
+      </Draggable>
+      <Draggable>
+        <Button onPress={() => navigation.navigate('Whisper')}>Load Whisper</Button>
       </Draggable>
     </View>
   )
@@ -169,6 +175,7 @@ export default function App() {
       <Stack.Screen name="Home" component={Home} />
       <Stack.Screen name="LogIn" component={LogIn} />
       <Stack.Screen name="Words" component={Words} />
+      <Stack.Screen name="Whisper" component={Whisper} />
     </Stack.Navigator>
     </NativeBaseProvider>
     </NavigationContainer>
