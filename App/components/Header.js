@@ -1,12 +1,14 @@
 import { StyleSheet, Text, View, Image } from 'react-native';
 import Logo from "../../assets/logo.svg"
 import Hamburger from "../../assets/hamburger.svg"
+import { supabase } from '../lib/supabase';
+import { Session } from '@supabase/supabase-js'
 
 const Header = () => {
   return (
     <View style={styles.container}>
       <Logo />
-      <Hamburger />
+      <Hamburger/>
     </View>
   )
 }

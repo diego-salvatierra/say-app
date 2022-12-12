@@ -15,6 +15,9 @@ import Sentence from "./screens/Sentence"
 import Header from './components/Header';
 import Whisper from './whisper/Whisper';
 import LogIn from './screens/LogIn';
+import { Session } from '@supabase/supabase-js'
+import { supabase } from './lib/supabase'
+
 /*import * as dotenv from 'dotenv' 
 import express from 'express'
 
@@ -136,6 +139,9 @@ function Home({navigation}) {
 // Integrate GPT3 to Ready button DONE
 // Save sentences TODAY
 // Add translations to words DONE
+// Google signin DONE
+// Supabase setup DONE
+// Save sentence to Supabase
 // View phrasebook TODAY
 // Get whisper working DONE
 // Card colors by type 
@@ -167,6 +173,21 @@ const Stack = createNativeStackNavigator();
 
 // add linear gradient to navigation container 
 export default function App() {
+
+  const [session, setSession] = useState()
+
+  useEffect(() => {
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      setSession(session)
+    })
+
+    supabase.auth.onAuthStateChange((_event, session) => {
+      setSession(session)
+    })
+  }, [])
+
+  console.log("logged in user is", session)
+
   return (
     <NavigationContainer>
     <NativeBaseProvider style={styles.container}>
