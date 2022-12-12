@@ -141,8 +141,9 @@ function Home({navigation}) {
 // Add translations to words DONE
 // Google signin DONE
 // Supabase setup DONE
-// Save sentence to Supabase
-// View phrasebook TODAY
+// Save sentence to Supabase DONE
+// Set up phrasebook screen TODAY
+// Retrieve sentences TODAY
 // Get whisper working DONE
 // Card colors by type 
 // GPT3 sentence coloring

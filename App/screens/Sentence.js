@@ -53,7 +53,7 @@ const Sentence = ({ words, setWords, forward, setForward, translations, setTrans
             alignItems: 'center',
         },
         buttonContainer: {
-            flex: 1.8,
+            flex: 4,
             flexDirection: 'row',
             justifyContent: 'flex-end',
         },

@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from 'react';
 
+// checks to see three main boxes are full
+
 const SentenceTest = ({sentence}) => {
         
     const [sentenceReady, setSentenceReady] = useState(false);
     const [savedSentence, setSavedSentence] = useState("");
 
     const sentenceTest = (sentence) => {
-        // check to see three main boxes are full
+
         if ((sentence.some((element) => ((element.type==="noun") && (element.id >= 0)))) &&
         (sentence.some((element) => (element.type==="verb") && (element.id >= 0))) &&
         (sentence.some((element) => (element.type==="subject") && (element.id >= 0))))

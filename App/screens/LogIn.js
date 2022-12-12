@@ -51,6 +51,8 @@ export const googleSignIn = async () => {
     path: '/auth/callback',
   });
 
+  console.log("redirectUrl is ", redirectUrl)
+
   // authUrl: https://{YOUR_PROJECT_REFERENCE_ID}.supabase.co
   // returnURL: the redirectUrl you created above.
   const authResponse = await startAsync({

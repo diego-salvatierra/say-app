@@ -4,11 +4,13 @@ import Draggable from 'react-native-draggable';
 import React, { useState, useEffect } from 'react';
 import SentenceTest from "./SentenceTest";
 import SentenceFixer from "./SentenceFixer";
+import SaveButton from "./SaveButton";
 
 const styles = StyleSheet.create({
-    parent: {
+    buttonContainer: {
         flexDirection: 'row',
-        justifyContent: 'center',
+        justifyContent: 'space-evenly',
+        flex: 1,
         alignItems: 'center',
         position: 'relative',
     }
@@ -18,7 +20,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         marginTop: 50,
-        elevation:3,
+        elevation: 3,
     }
 })
 
@@ -30,8 +32,10 @@ const SaveSentence = ({ sentence, setText}) => {
 
     console.log("going into READY, sentence is ", sentence)
 
+    // state for keeping track of sentence building process
     const [sentenceReady, setSentenceReady] = useState(false);
     const [savedSentence, setSavedSentence] = useState("");
+    const [sentenceChecked, setSentenceChecked] = useState(false);
     
     const sentenceTest = () => {
         // check to see three main boxes are full
@@ -68,16 +72,30 @@ const SaveSentence = ({ sentence, setText}) => {
     let sentenceFix
 
     if (sentenceReady===false) {
-        sentenceFix = <Button buttonStyle={{ backgroundColor: '#B7B7B7' }} onPress={ () => {alert("Add a few more words :) ") } }>Ready</Button>
+        sentenceFix = 
+            <View>
+                <Button buttonStyle={{ backgroundColor: '#B7B7B7' }} onPress={ () => {alert("Add a few more words :) ") } }>Ready</Button>
+            </View>
     }
 
     if (sentenceReady===true) {
-        sentenceFix = <SentenceFixer sentence={sentence} setText={setText}/>
+        sentenceFix = <SentenceFixer 
+                        sentence={sentence} 
+                        setText={setText} 
+                        setSavedSentence={setSavedSentence} 
+                        setSentenceChecked={setSentenceChecked}
+                    />
     }
 
     return (
-        <View style={styles.parent}>
+        <View style={styles.buttonContainer}>
             { sentenceFix }
+            <SaveButton 
+                sentence={sentence} 
+                savedSentence={savedSentence} 
+                sentenceChecked={sentenceChecked}
+                setSentenceChecked={setSentenceChecked}
+            />
         </View>
     );
 };

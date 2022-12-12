@@ -18,7 +18,7 @@ const openai = new OpenAIApi(configuration);
 
 // SHOULD ONLY RUN WHEN READY
 
-const SentenceFixer = ({ sentence, setText}) => {
+const SentenceFixer = ({ sentence, setText, setSavedSentence, setSentenceChecked}) => {
 
     console.log("within fixer, sentence is ", sentence)
 
@@ -33,16 +33,21 @@ const SentenceFixer = ({ sentence, setText}) => {
     console.log("sentenceFixInit is ", sentenceFixInit)
 
     const [sentenceInput, setSentenceInput] = useState(sentenceFixInit); 
-    const [result, setResult] = useState();
   
     console.log("sentenceInput is ", sentenceInput)
+
+    const saveSentenceText = (input) => {
+        setSentenceChecked(true)
+        setSavedSentence(input)
+        setText(input)
+    }
 
     const fixSentence = () => {
       openai.createCompletion({
         model: "text-davinci-002",
         prompt: `correct the grammar of the following Spanish sentence: ${sentenceInput}`,
         temperature: 0,
-      }).then(response => setText(response.data.choices[0].text.trim()))
+      }).then(response => saveSentenceText(response.data.choices[0].text.trim()))
     } 
 
     return (
@@ -54,7 +59,7 @@ const SentenceFixer = ({ sentence, setText}) => {
 
 const styles = StyleSheet.create({
     buttons: {
-      flexDirection: 'row',
+      flexDirection: 'column',
       justifyContent: 'center',
       alignItems: 'center',
       paddingTop: 0,
