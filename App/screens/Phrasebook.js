@@ -15,8 +15,13 @@ import { supabase, supabaseUrl} from '../lib/supabase';
 import { Button, Input } from '@rneui/themed'
 import { Buffer } from "buffer";
 import Header from '../components/Header';
+import { DraxProvider, DraxScrollView } from 'react-native-drax';
+import SentenceCard from '../components/SentenceCard';
+import { border } from 'native-base/lib/typescript/theme/styled-system';
+
 
 const PAGE_HEIGHT = Dimensions.get('window').height;
+const PAGE_WIDTH = Dimensions.get('window').width;
 
 const Phrasebook = () => {
 
@@ -38,36 +43,49 @@ const Phrasebook = () => {
   // Fetch sentences based on session
 
   async function fetchSentences() {
-    
+
     const { data, error } = await supabase
     .from('sentences')
-    .select('sentence')
+    .select('sentence, id')
     .eq('user', session.user.id)  
 
     if (error) alert(error.message)
 
     console.log("data.sentence is ", data)
 
+    if (data) {
+        setSentences(data)
+    }
+
 }
+
+console.log("sentences is ", sentences)
 
   
 
  return (  
     <View style={styles.container}>      
-    <View style={styles.container}>
-        <LinearGradient 
-        colors={['#9F00B9', '#FFDC61']}
-        locations={[0, .99]}
-        style={styles.linearGradient}
-        />
-        <Header />
-        <View style={styles.topContent}>
-        <Text style={styles.mainText}>
-        Your phrasebook
-        </Text>
-        <Button onPress={fetchSentences}>Fetch sentences</Button>
+        <View style={styles.container}>
+            <LinearGradient 
+            colors={['#9F00B9', '#FFDC61']}
+            locations={[0, .99]}
+            style={styles.linearGradient}
+            />
+            <Header />
+            <View style={styles.topContent}>
+                <Text style={styles.mainText}>
+                Your phrasebook
+                </Text>
+                <Button onPress={fetchSentences}>Fetch sentences</Button>
+                <DraxProvider>
+                    <View>
+                        <DraxScrollView style={styles.sentenceContainer}>
+                            {sentences.map((sentence) => <SentenceCard key = {sentence.id} sentence={sentence.sentence}/>)}
+                        </DraxScrollView>
+                    </View>
+                </DraxProvider>
+            </View>
         </View>
-   </View>
    </View>
  )
 }
@@ -84,10 +102,19 @@ const styles = StyleSheet.create({
     //alignItems: 'center',
     display: 'flex',
 },
+sentenceContainer: {
+    flexDirection: 'column',
+    justifyContent: 'center',
+    //alignItems: 'center',
+    display: 'flex',
+    padding: 10,
+    width: PAGE_WIDTH,
+    height: PAGE_HEIGHT,
+},
  topContent: {
   flex: 1,
   alignItems: 'center',
-  justifyContent: 'center'
+  justifyContent: 'center',
  },
  mainText: {
   fontSize: 54,

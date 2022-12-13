@@ -20,8 +20,6 @@ import { LinearGradient } from 'expo-linear-gradient'
 const PAGE_WIDTH = Dimensions.get('window').width;
 const PAGE_HEIGHT = Dimensions.get('window').height;
 
-console.log("PAGE_HEIGHT", PAGE_HEIGHT)
-
 export default ({ route }) => {
 
     // set up translations toggle 

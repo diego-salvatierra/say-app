@@ -191,8 +191,6 @@ export default function App() {
     })
   }, [])
 
-  console.log("logged in user is", session)
-
   return (
     <NavigationContainer>
     <NativeBaseProvider style={styles.container}>

@@ -7,8 +7,6 @@ import { OPENAI_API_KEY } from "react-native-dotenv"
 
 // Set up GPT3
 
-console.log("key is ", OPENAI_API_KEY)
-
 const configuration = new Configuration({
   apiKey: OPENAI_API_KEY,
 });
