@@ -17,6 +17,7 @@ import Whisper from './whisper/Whisper';
 import LogIn from './screens/LogIn';
 import { Session } from '@supabase/supabase-js'
 import { supabase } from './lib/supabase'
+import Phrasebook from './screens/Phrasebook';
 
 /*import * as dotenv from 'dotenv' 
 import express from 'express'
@@ -97,6 +98,9 @@ function Home({navigation}) {
       </Draggable>
       <Draggable>
         <Button onPress={() => navigation.navigate('Whisper')}>Load Whisper</Button>
+      </Draggable>
+      <Draggable>
+        <Button onPress={() => navigation.navigate('Phrasebook')}>Load Phrasebook</Button>
       </Draggable>
     </View>
   )
@@ -198,6 +202,7 @@ export default function App() {
       <Stack.Screen name="LogIn" component={LogIn} />
       <Stack.Screen name="Words" component={Words} />
       <Stack.Screen name="Whisper" component={Whisper} />
+      <Stack.Screen name="Phrasebook" component={Phrasebook} />
     </Stack.Navigator>
     </NativeBaseProvider>
     </NavigationContainer>

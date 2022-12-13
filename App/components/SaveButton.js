@@ -26,12 +26,12 @@ const SaveButton = ({sentence, savedSentence, sentenceChecked, setSentenceChecke
         console.log("within savebutton, sentence is ", sentence)
         console.log("within savebutton, savedSentence is ", savedSentence)
 
-        console.log("within savebutton, session.user is ", session.user)
+        console.log("within savebutton, session.user.id is ", session.user.id)
 
 
         const { error } = await supabase
         .from('sentences')
-        .insert({ id: 1, created_at: new Date().toISOString(), user: session.user, sentence: savedSentence, language: "es", type: "basic", blocks: sentence})
+        .insert({ created_at: new Date().toISOString(), user: session.user.id, sentence: savedSentence, language: "es", type: "basic", blocks: sentence})
 
         if (error) alert(error.message)
 
