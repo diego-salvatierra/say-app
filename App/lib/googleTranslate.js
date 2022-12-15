@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import {decode} from 'html-entities'
+import { GOOGLE_API_KEY } from "react-native-dotenv"
+
 
 // Google Translate API one way 
 
@@ -11,8 +13,7 @@ const googleTranslate = async (savedSentence, lang, setSentenceEn) => {
     let fromLang = lang;
     let toLang = 'en'; // translate to English
 
-    // const API_KEY = "AIzaSyAJ1-ryN8FFi1IqqUI9QZ4PSGO9MiUOkY4"
-    const API_KEY = "AIzaSyA0ZGLUpM7hzisP6abjEtPh4t1fTaJ4R1U"
+    const API_KEY = GOOGLE_API_KEY
 
     let url = `https://translation.googleapis.com/language/translate/v2?key=${API_KEY}`;
     url += '&q=' + encodeURI(savedSentence);

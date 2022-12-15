@@ -144,7 +144,7 @@ const Sentence = ({ words, setWords, forward, setForward, translations, setTrans
         <View>
             <View style={styles.topContainer}>
                 <View style={styles.buttonContainer}>
-                    <SaveSentence sentence={sentence} setText={setText} setSentenceEn={setSentenceEn}/>
+                    <SaveSentence sentence={sentence} setText={setText} setSentenceEn={setSentenceEn} sentenceEn={sentenceEn}/>
                 </View>
                 <View style={styles.switchContainer}>
                     <Switch

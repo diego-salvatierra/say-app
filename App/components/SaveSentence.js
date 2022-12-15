@@ -24,7 +24,7 @@ const styles = StyleSheet.create({
     }
 })
 
-const SaveSentence = ({ sentence, setText, setSentenceEn}) => {
+const SaveSentence = ({ sentence, setText, setSentenceEn, sentenceEn}) => {
 
     /*useEffect(() => {
             alert("Your sentence is " + savedSentence)
@@ -96,6 +96,7 @@ const SaveSentence = ({ sentence, setText, setSentenceEn}) => {
                 savedSentence={savedSentence} 
                 sentenceChecked={sentenceChecked}
                 setSentenceChecked={setSentenceChecked}
+                sentenceEn={sentenceEn}
             />
         </View>
     );

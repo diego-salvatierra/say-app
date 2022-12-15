@@ -12,7 +12,7 @@ import {
 import { LinearGradient } from 'expo-linear-gradient'
 import { makeRedirectUri, startAsync } from 'expo-auth-session';
 import { supabase, supabaseUrl} from '../lib/supabase';
-import { Button, Input } from '@rneui/themed'
+import { Button, Input, Switch} from '@rneui/themed'
 import { Buffer } from "buffer";
 import Header from '../components/Header';
 import { DraxProvider, DraxScrollView } from 'react-native-drax';
@@ -26,6 +26,9 @@ const PAGE_WIDTH = Dimensions.get('window').width;
 const Phrasebook = () => {
 
     const [sentences, setSentences] = useState([])
+
+    const [translations, setTranslations] = useState(true)
+
 
   // Retrieve session
 
@@ -42,26 +45,25 @@ const Phrasebook = () => {
   }, [])
   // Fetch sentences based on session
 
-  async function fetchSentences() {
+  useEffect(() => {
+    const fetchSentences = async () => {
 
-    const { data, error } = await supabase
-    .from('sentences')
-    .select('sentence, id')
-    .eq('user', session.user.id)  
-
-    if (error) alert(error.message)
-
-    console.log("data.sentence is ", data)
-
-    if (data) {
-        setSentences(data)
+        const { data, error } = await supabase
+        .from('sentences')
+        .select('sentence, id, translation')
+        .eq('user', session.user.id)  
+    
+        if (error) alert(error.message)
+    
+        if (data) {
+            setSentences(data)
+        }
+    
     }
 
-}
+    fetchSentences()
+  }, [])
 
-console.log("sentences is ", sentences)
-
-  
 
  return (  
     <View style={styles.container}>      
@@ -76,11 +78,23 @@ console.log("sentences is ", sentences)
                 <Text style={styles.mainText}>
                 Your phrasebook
                 </Text>
-                <Button onPress={fetchSentences}>Fetch sentences</Button>
+                <View style={styles.switchContainer}>
+                    <Text style={styles.text}>Eng: </Text>
+                    <Switch
+                        value={translations}
+                        color={'#FFC107'}
+                        onValueChange={(value) => setTranslations(value)}
+                    />
+                </View> 
                 <DraxProvider>
                     <View>
                         <DraxScrollView style={styles.sentenceContainer}>
-                            {sentences.map((sentence) => <SentenceCard key = {sentence.id} sentence={sentence.sentence}/>)}
+                            {sentences.map((sentence) => <SentenceCard 
+                            key = {sentence.id} 
+                            sentence={sentence.sentence} 
+                            translation={sentence.translation} 
+                            translations={translations}
+                            />)}
                         </DraxScrollView>
                     </View>
                 </DraxProvider>
@@ -91,10 +105,6 @@ console.log("sentences is ", sentences)
 }
 
 const styles = StyleSheet.create({
- /*container: {
-  height: Dimensions.get('window').height,
-  backgroundColor: "black",
- },*/
  container: {
     flex: 1,
     flexDirection: 'column',
@@ -120,12 +130,20 @@ sentenceContainer: {
   fontSize: 54,
   color: "white",
  },
+ text: {
+    fontSize: 16,
+    color: "white",
+   },
  linearGradient: {
     position: 'absolute',
     height: PAGE_HEIGHT,
     left: 0,
     right: 0,
     top: 0,    
+},
+switchContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
 },
 });
 

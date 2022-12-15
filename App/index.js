@@ -151,7 +151,7 @@ function Home({navigation}) {
 // Get whisper working DONE
 // Card colors by type 
 // Add Korean TODAY
-// Add phrase translations toggle TODAY
+// Add phrase translations toggle DONE
 // GPT3 sentence coloring
 // Say! button add TODAY
 // Say! button AI TRY

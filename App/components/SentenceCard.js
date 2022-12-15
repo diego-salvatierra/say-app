@@ -3,14 +3,14 @@ import { View, TouchableOpacity, Button, Text, StyleSheet} from "react-native";
 import { Card } from "@rneui/themed";
 import { DraxProvider, DraxView } from 'react-native-drax';
 
-const SentenceCard = ( {sentence} ) => {
+const SentenceCard = ( {sentence, translation, translations} ) => {
 
-    /* // For translations
+     // For translations
     
-    const SentenceTranslation = () => {
-        if (translations === true) {
+    const sentenceTranslation = () => {
+        if (translations === true && translation !== null) {
             return (
-                <Text style={styles.textLight}>{word.translation}</Text>
+                <Text style={styles.textLight}>{translation}</Text>
             )
         }
         else {
@@ -18,13 +18,13 @@ const SentenceCard = ( {sentence} ) => {
                 null
             )
         }
-    }*/
+    }
 
     return (
         <View style={{width : '100%'}}>
             <TouchableOpacity style={styles.sentenceCard}>
                 <Text style={styles.text}>{sentence}</Text>
-                {/*SentenceTranslation()*/}
+                {sentenceTranslation()}
             </TouchableOpacity>
         </View>
     );
@@ -32,7 +32,7 @@ const SentenceCard = ( {sentence} ) => {
 
 const styles = StyleSheet.create({
     sentenceCard: {
-        flexDirection: 'row',
+        flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'center',
         paddingHorizontal: 10,
@@ -56,8 +56,8 @@ const styles = StyleSheet.create({
         
     },
     textLight: {
-        fontSize: 10,
-        height: 13,
+        fontSize: 14,
+        height: 18,
         display: 'flex',
         alignItems: 'center',
         textAlign: 'center',

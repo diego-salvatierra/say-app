@@ -5,7 +5,7 @@ import { supabase, supabaseUrl} from '../lib/supabase';
 import googleTranslate from '../lib/googleTranslate';
 
 
-const SaveButton = ({sentence, savedSentence, sentenceChecked, setSentenceChecked}) => {
+const SaveButton = ({sentence, savedSentence, sentenceChecked, setSentenceChecked, sentenceEn}) => {
 
     // Retrieve user session
 
@@ -20,8 +20,6 @@ const SaveButton = ({sentence, savedSentence, sentenceChecked, setSentenceChecke
         setSession(session)
         })
     }, [])
-    
-    // Save sentence to database
 
     async function saveSentence() {
 
