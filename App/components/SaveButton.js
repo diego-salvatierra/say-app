@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, TextInput} from "react-native";
 import { Button } from "@rneui/themed"
 import { supabase, supabaseUrl} from '../lib/supabase';
+import googleTranslate from '../lib/googleTranslate';
 
 
 const SaveButton = ({sentence, savedSentence, sentenceChecked, setSentenceChecked}) => {
@@ -19,19 +20,23 @@ const SaveButton = ({sentence, savedSentence, sentenceChecked, setSentenceChecke
         setSession(session)
         })
     }, [])
-
+    
     // Save sentence to database
 
     async function saveSentence() {
-        console.log("within savebutton, sentence is ", sentence)
-        console.log("within savebutton, savedSentence is ", savedSentence)
-
-        console.log("within savebutton, session.user.id is ", session.user.id)
-
 
         const { error } = await supabase
         .from('sentences')
-        .insert({ created_at: new Date().toISOString(), user: session.user.id, sentence: savedSentence, language: "es", type: "basic", blocks: sentence})
+        .insert({ 
+            created_at: new Date().toISOString(), 
+            user: session.user.id, 
+            sentence: savedSentence, 
+            language: "es", 
+            type: "basic", 
+            blocks: sentence,
+            translation: sentenceEn
+            }
+        )
 
         if (error) alert(error.message)
 

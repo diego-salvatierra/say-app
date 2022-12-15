@@ -24,7 +24,7 @@ const styles = StyleSheet.create({
     }
 })
 
-const SaveSentence = ({ sentence, setText}) => {
+const SaveSentence = ({ sentence, setText, setSentenceEn}) => {
 
     /*useEffect(() => {
             alert("Your sentence is " + savedSentence)
@@ -84,6 +84,7 @@ const SaveSentence = ({ sentence, setText}) => {
                         setText={setText} 
                         setSavedSentence={setSavedSentence} 
                         setSentenceChecked={setSentenceChecked}
+                        setSentenceEn={setSentenceEn}
                     />
     }
 

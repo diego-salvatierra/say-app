@@ -4,6 +4,7 @@ import { Button } from "@rneui/themed"
 import { Configuration, OpenAIApi } from "openai";
 import 'react-native-url-polyfill/auto'
 import { OPENAI_API_KEY } from "react-native-dotenv"
+import googleTranslate from '../lib/googleTranslate';
 
 // Set up GPT3
 
@@ -16,7 +17,7 @@ const openai = new OpenAIApi(configuration);
 
 // SHOULD ONLY RUN WHEN READY
 
-const SentenceFixer = ({ sentence, setText, setSavedSentence, setSentenceChecked}) => {
+const SentenceFixer = ({ sentence, setText, setSavedSentence, setSentenceChecked, setSentenceEn}) => {
 
     console.log("within fixer, sentence is ", sentence)
 
@@ -34,10 +35,12 @@ const SentenceFixer = ({ sentence, setText, setSavedSentence, setSentenceChecked
   
     console.log("sentenceInput is ", sentenceInput)
 
+    // Save sentence and translation to state
     const saveSentenceText = (input) => {
         setSentenceChecked(true)
         setSavedSentence(input)
         setText(input)
+        googleTranslate(input, "es", setSentenceEn)
     }
 
     const fixSentence = () => {

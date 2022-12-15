@@ -141,18 +141,20 @@ function Home({navigation}) {
 // Add logo DONE
 // Bug: Ready button should refresh sentence
 // Integrate GPT3 to Ready button DONE
-// Save sentences TODAY
+// Save sentences DONE
 // Add translations to words DONE
 // Google signin DONE
 // Supabase setup DONE
 // Save sentence to Supabase DONE
-// Set up phrasebook screen TODAY
-// Retrieve sentences TODAY
+// Set up phrasebook screen DONE
+// Retrieve sentences DONE
 // Get whisper working DONE
 // Card colors by type 
+// Add Korean TODAY
+// Add phrase translations toggle TODAY
 // GPT3 sentence coloring
-// Say! button 
-// Say! button AI
+// Say! button add TODAY
+// Say! button AI TRY
 // GPT3 chat response
 // Integrate GPT3 DONE
 // UI enhancements DONE

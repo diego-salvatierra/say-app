@@ -12,6 +12,9 @@ const Sentence = ({ words, setWords, forward, setForward, translations, setTrans
 
     const [text, setText] = useState("Drag the words to build your sentence")
 
+    // Set translation placeholder
+    const [sentenceEn, setSentenceEn] = useState(null)
+
     // Set initial empty sentence
 
     const sentenceInit = [
@@ -64,7 +67,7 @@ const Sentence = ({ words, setWords, forward, setForward, translations, setTrans
             paddingRight: 40,
         },
         textContainer: {
-            flexDirection: 'row',
+            flexDirection: 'column',
             justifyContent: 'center',
             alignItems: 'center',
             padding: 10,
@@ -72,6 +75,11 @@ const Sentence = ({ words, setWords, forward, setForward, translations, setTrans
         text: {
             fontSize: 20,
             color: 'white',
+        },
+        translationText: {
+            fontSize: 16,
+            marginTop: 5,
+            color: '#B7B7B7',
         },
         item: {
             flexDirection: 'row',
@@ -121,11 +129,22 @@ const Sentence = ({ words, setWords, forward, setForward, translations, setTrans
         }
     }
 
+    const sentenceTranslation = () => {
+        if (translations===true) {
+            return (
+                <Text style={styles.translationText}>{sentenceEn}</Text>
+            )
+        }
+        else {
+            return null
+        }
+    }
+
     return (
         <View>
             <View style={styles.topContainer}>
                 <View style={styles.buttonContainer}>
-                    <SaveSentence sentence={sentence} setText={setText}/>
+                    <SaveSentence sentence={sentence} setText={setText} setSentenceEn={setSentenceEn}/>
                 </View>
                 <View style={styles.switchContainer}>
                     <Switch
@@ -137,6 +156,7 @@ const Sentence = ({ words, setWords, forward, setForward, translations, setTrans
             </View>
             <View style={styles.textContainer}>
                 <Text style={styles.text}>{text}</Text>
+                {sentenceTranslation()}
             </View>
             <ScrollView contentContainerStyle={styles.container}>
                 {(sentence || []).map(
