@@ -88,6 +88,8 @@ export default ({ route }) => {
     // Import params
     const words = route.params.words;
     const setWords = route.params.setWords;
+    const lang = route.params.lang;
+    const langCode = route.params.langCode;
 
     //console.log("word is ", words[0])
 
@@ -165,6 +167,8 @@ export default ({ route }) => {
                         setForward={setForward}
                         translations={translations}
                         setTranslations={setTranslations}
+                        lang={lang}
+                        langCode={langCode}
                     />
                     <Tab.Navigator
                     tabBar={props => <WordMenu {...props} forward={forward} setForward ={setForward}/>}

@@ -25,7 +25,17 @@ const styles = StyleSheet.create({
     }
 })
 
-const SaveSentence = ({ sentence, setText, setSentenceEn, sentenceEn, sentenceWhisper, setSentenceWhisper}) => {
+const SaveSentence = ({ sentence, 
+                        setText, 
+                        setSentenceEn, 
+                        sentenceEn, 
+                        sentenceWhisper, 
+                        setSentenceWhisper, 
+                        lang, 
+                        langCode,
+                        sentenceAnalyzed,
+                        setSentenceAnalyzed,
+                    }) => {
 
     /*useEffect(() => {
             alert("Your sentence is " + savedSentence)
@@ -86,6 +96,10 @@ const SaveSentence = ({ sentence, setText, setSentenceEn, sentenceEn, sentenceWh
                         setSavedSentence={setSavedSentence} 
                         setSentenceChecked={setSentenceChecked}
                         setSentenceEn={setSentenceEn}
+                        lang={lang}
+                        langCode={langCode}
+                        sentenceAnalyzed={sentenceAnalyzed}
+                        setSentenceAnalyzed={setSentenceAnalyzed}
                     />
     }
     

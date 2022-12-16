@@ -17,7 +17,16 @@ const openai = new OpenAIApi(configuration);
 
 // SHOULD ONLY RUN WHEN READY
 
-const SentenceFixer = ({ sentence, setText, setSavedSentence, setSentenceChecked, setSentenceEn}) => {
+const SentenceFixer = ({ sentence, 
+                        setText, 
+                        setSavedSentence, 
+                        setSentenceChecked, 
+                        setSentenceEn, 
+                        lang, 
+                        langCode,
+                        sentenceAnalyzed,
+                        setSentenceAnalyzed,
+                      }) => {
 
     console.log("within fixer, sentence is ", sentence)
 
@@ -40,13 +49,21 @@ const SentenceFixer = ({ sentence, setText, setSavedSentence, setSentenceChecked
         setSentenceChecked(true)
         setSavedSentence(input)
         setText(input)
-        googleTranslate(input, "ko", setSentenceEn)
+        googleTranslate(input, langCode, setSentenceEn)
+        let inputArray = input.split(" ")
+        let sentenceAnalyzedTemp = []
+        let id = 0
+        for (let i = 0; i < inputArray.length; i++) {
+          sentenceAnalyzedTemp.push({id: id, word: inputArray[i], said:false}); 
+          id++
+        }
+        setSentenceAnalyzed(sentenceAnalyzedTemp)
     }
 
     const fixSentence = () => {
       openai.createCompletion({
         model: "text-davinci-003",
-        prompt: `Correct the following sentence, in Korean: ${sentenceInput}`,
+        prompt: `Correct the following sentence, in ${lang}: ${sentenceInput}`,
         temperature: 0.7,
         max_tokens: 100,
       }).then(response => saveSentenceText(response.data.choices[0].text.trim()))

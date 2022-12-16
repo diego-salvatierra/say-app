@@ -170,10 +170,10 @@ const LogIn = () => {
       </View>
       <View style={styles.buttons}>
         <View>
-          <Button buttonStyle={{ backgroundColor: '#FFC107' }} title="Sign in" disabled={loading} onPress={() => signInWithEmail()} />
+          <Button buttonStyle={{ backgroundColor: '#FFC107', marginRight: 10}} title="Sign in" disabled={loading} onPress={() => signInWithEmail()} />
         </View>
         <View>
-          <Button buttonStyle={{ backgroundColor: 'transparent', borderColor: '#FFC107', borderWidth: 1 }} title="Sign up" disabled={loading} onPress={() => signUpWithEmail()} />
+          <Button buttonStyle={{ backgroundColor: 'transparent', borderColor: '#FFC107', borderWidth: 1, marginRight: 10}} title="Sign up" disabled={loading} onPress={() => signUpWithEmail()} />
         </View>
         <View>
           {LogOut()}

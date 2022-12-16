@@ -5,8 +5,9 @@ import { DraxProvider, DraxView, DraxList } from 'react-native-drax';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import SentenceWord from '../components/SentenceWord';
 import SaveSentence from '../components/SaveSentence';
+import AnalyzeWord from '../components/AnalyzeWord';
 
-const Sentence = ({ words, setWords, forward, setForward, translations, setTranslations}) => {
+const Sentence = ({ words, setWords, forward, setForward, translations, setTranslations, lang, langCode}) => {
 
     // Set instructions
 
@@ -101,6 +102,9 @@ const Sentence = ({ words, setWords, forward, setForward, translations, setTrans
         dragging: {
             opacity: 0.1,
         },
+        sentenceAnalyzed: {
+            flexDirection: 'row',
+        },
       })
 
     // Automatic completion checker
@@ -147,6 +151,56 @@ const Sentence = ({ words, setWords, forward, setForward, translations, setTrans
         }
     }
 
+    // check whispered sentence against sentence
+    useEffect(() => {
+        console.log("sentenceWhisper is ", sentenceWhisper)
+        for (let i = 0; i < sentenceAnalyzed.length; i++) {
+            console.log("sentenceAnalyzed is ", sentenceAnalyzed)
+            let interimState = [...sentenceAnalyzed]
+            console.log("interimState is ", interimState)
+            if (sentenceWhisper.includes(sentenceAnalyzed[i].word)) {
+                interimState[i].said = true
+                setSentenceAnalyzed(interimState)
+            }
+        }
+      }, [sentenceWhisper])
+
+    const analyzeSentence = () => {
+        console.log("sentenceAnalyzed RERENDER is ", sentenceAnalyzed)
+        return (
+            <View style={styles.sentenceAnalyzed}>
+                    {sentenceAnalyzed.map(
+                        (word, id) => (
+                            <AnalyzeWord 
+                                key={id} 
+                                word={word} 
+                            />
+                        ))
+                    }
+            </View>
+        )
+    }
+
+    useEffect( () => {
+        console.log("rerendering sentenceAnalyzed", sentenceAnalyzed)
+    }, [sentenceAnalyzed])
+
+    // set Text based on whispered
+
+    const setWhispered = () => {
+        if (sentenceWhisper == "no whisper yet") {
+            return (
+                <Text style={styles.text}>{text}</Text>
+            )
+        }
+        else {
+            return (
+                analyzeSentence()
+            )
+        }
+    }
+
+
     return (
         <View>
             <View style={styles.topContainer}>
@@ -158,6 +212,10 @@ const Sentence = ({ words, setWords, forward, setForward, translations, setTrans
                         sentenceEn={sentenceEn}
                         sentenceWhisper={sentenceWhisper}
                         setSentenceWhisper={setSentenceWhisper}
+                        lang={lang}
+                        langCode={langCode}
+                        sentenceAnalyzed={sentenceAnalyzed}
+                        setSentenceAnalyzed={setSentenceAnalyzed}
                         />
                 </View>
                 <View style={styles.switchContainer}>
@@ -169,9 +227,7 @@ const Sentence = ({ words, setWords, forward, setForward, translations, setTrans
                 </View>              
             </View>
             <View style={styles.textContainer}>
-                <Text style={styles.text}>{text}</Text>
-                {sentenceTranslation()}
-                <Text>{sentenceWhisper}</Text>
+                {setWhispered()}
             </View>
             <ScrollView contentContainerStyle={styles.container}>
                 {(sentence || []).map(
