@@ -93,14 +93,14 @@ const SaveSentence = ({ sentence, setText, setSentenceEn, sentenceEn, sentenceWh
 
     let sayButton
 
-    if (sentenceReady===false) {
+    if (sentenceChecked===false) {
         sayButton = 
             <View>
                 <Button buttonStyle={{ backgroundColor: '#B7B7B7' }} onPress={ () => {alert("Add a few more words :) ") } }>Say it!</Button>
             </View>
     }
 
-    if (sentenceReady===true) {
+    if (sentenceChecked===true) {
         sayButton = <SayWhisper sentenceWhisper={sentenceWhisper} setSentenceWhisper={setSentenceWhisper}/>
     }
 

@@ -91,7 +91,7 @@ const LogOut = () => {
 
   if (session?.user) {
     return (
-      <Button onPress={() => supabase.auth.signOut()}>Log Out</Button>
+      <Button buttonStyle={{ backgroundColor: '#FFC107' }} onPress={() => supabase.auth.signOut()}>Log Out</Button>
     )
   }
   else {
@@ -146,32 +146,38 @@ const LogIn = () => {
     <View style={[styles.verticallySpaced, styles.mt20]}>
         <Input
           label="Email"
-          leftIcon={{ type: 'font-awesome', name: 'envelope' }}
           onChangeText={(text) => setEmail(text)}
           value={email}
           placeholder="email@address.com"
           autoCapitalize={'none'}
+          inputStyle={{ color: 'white' }} 
+          inputContainerStyle={{ borderBottomColor: 'white' }}
+          labelStyle={{ color: 'white' }}
         />
       </View>
       <View style={styles.verticallySpaced}>
         <Input
           label="Password"
-          leftIcon={{ type: 'font-awesome', name: 'lock' }}
           onChangeText={(text) => setPassword(text)}
           value={password}
           secureTextEntry={true}
-          placeholder="Password"
+          placeholder="********"
           autoCapitalize={'none'}
+          inputStyle={{ color: 'white' }} 
+          inputContainerStyle={{ borderBottomColor: 'white' }}
+          labelStyle={{ color: 'white' }} 
         />
       </View>
-      <View style={[styles.verticallySpaced, styles.mt20]}>
-        <Button title="Sign in" disabled={loading} onPress={() => signInWithEmail()} />
-      </View>
-      <View style={styles.verticallySpaced}>
-        <Button title="Sign up" disabled={loading} onPress={() => signUpWithEmail()} />
-      </View>
-      <View style={styles.verticallySpaced}>
-        {LogOut()}
+      <View style={styles.buttons}>
+        <View>
+          <Button buttonStyle={{ backgroundColor: '#FFC107' }} title="Sign in" disabled={loading} onPress={() => signInWithEmail()} />
+        </View>
+        <View>
+          <Button buttonStyle={{ backgroundColor: 'transparent', borderColor: '#FFC107', borderWidth: 1 }} title="Sign up" disabled={loading} onPress={() => signUpWithEmail()} />
+        </View>
+        <View>
+          {LogOut()}
+        </View>
       </View>
     <View style={styles.bottomContent}>
      <TouchableOpacity style={styles.googleButton} onPress={() => googleSignIn()}>
@@ -198,10 +204,15 @@ const styles = StyleSheet.create({
   alignItems: 'center',
   justifyContent: 'center'
  },
- bottomContent: {
-  flex: 1,
+ buttons: {
+  flexDirection: 'row',
   alignItems: 'center',
-  justifyContent: 'center'
+  justifyContent: 'center',
+  },
+ bottomContent: {
+  flex: 2,
+  alignItems: 'center',
+  paddingTop: PAGE_HEIGHT*.1,
  },
  mainText: {
   fontSize: 54,
@@ -222,7 +233,8 @@ mt20: {
   paddingVertical: 16,
   flexDirection: 'row',
   justifyContent: 'center',
-  alignItems: 'center'
+  alignItems: 'center',
+
  },
  googleButtonText: {
   marginLeft: 16,

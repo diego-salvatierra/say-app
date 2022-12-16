@@ -46,7 +46,7 @@ const SentenceFixer = ({ sentence, setText, setSavedSentence, setSentenceChecked
     const fixSentence = () => {
       openai.createCompletion({
         model: "text-davinci-002",
-        prompt: `correct the grammar of the following Spanish sentence: ${sentenceInput}`,
+        prompt: `correct the grammar of the following Spanish sentence, in present tense: ${sentenceInput}`,
         temperature: 0,
       }).then(response => saveSentenceText(response.data.choices[0].text.trim()))
     } 

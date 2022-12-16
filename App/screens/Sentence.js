@@ -18,6 +18,10 @@ const Sentence = ({ words, setWords, forward, setForward, translations, setTrans
     // Create Whisper sentence
     const [sentenceWhisper, setSentenceWhisper] = useState("no whisper yet")
 
+    // Sentence analyzed
+
+    const [sentenceAnalyzed, setSentenceAnalyzed] = useState([])
+
     // Set initial empty sentence
 
     const sentenceInit = [

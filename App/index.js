@@ -153,8 +153,8 @@ function Home({navigation}) {
 // Add Korean TODAY
 // Add phrase translations toggle DONE
 // GPT3 sentence coloring
-// Say! button add TODAY
-// Say! button AI TRY
+// Say! button add DONE
+// Say! button AI DONE
 // GPT3 chat response
 // Integrate GPT3 DONE
 // UI enhancements DONE

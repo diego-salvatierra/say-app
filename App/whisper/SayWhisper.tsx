@@ -188,10 +188,10 @@ export default ({sentenceWhisper, setSentenceWhisper}) => {
         console.log("Recording started");
         setStopTranscriptionSession(false);
         setIsRecording(true);
-        intervalRef.current = setInterval(
+        /*intervalRef.current = setInterval(
           transcribeInterim,
           transcribeTimeout * 1000
-        );
+        );*/
         console.log("erer", recording);
       } else {
         setMessage("Please grant permission to app to access microphone");
@@ -222,6 +222,7 @@ export default ({sentenceWhisper, setSentenceWhisper}) => {
     setStopTranscriptionSession(true);
     setIsRecording(false);
     setIsTranscribing(false);
+    transcribeRecording()
   }
 
   function getDurationFormatted(millis: any) {
@@ -252,17 +253,17 @@ export default ({sentenceWhisper, setSentenceWhisper}) => {
   function transcribeInterim() {
     clearInterval(intervalRef.current);
     setIsRecording(false);
+    console.log("transcribeInterim called");
   }
 
   async function transcribeRecording() {
-    console.log("recording in transcribe is ", recording)
     const uri = recording.getURI();
     const filetype = uri.split(".").pop();
     const filename = uri.split("/").pop();
     setLoading(true);
     const formData: any = new FormData();
     formData.append("language", "spanish");
-    formData.append("model_size", modelOptions[selectedModelRef.current]);
+    formData.append("model_size", "small");
     formData.append(
       "audio_data",
       {
@@ -272,9 +273,9 @@ export default ({sentenceWhisper, setSentenceWhisper}) => {
       },
       "temp_recording"
     );
-    console.log("formData", formData)
+    console.log("formData sent is", formData)
     axios({
-      url: "https://4826-71-198-36-197.ngrok.io/transcribe", // IMPORTANT! must equal current ngrok server
+      url: "https://1450-2607-f598-b7da-90-bd46-f1f8-dfcd-ffbc.ngrok.io/transcribe", // IMPORTANT! must equal current ngrok server
       method: "POST",
       data: formData,
       headers: {
@@ -290,10 +291,10 @@ export default ({sentenceWhisper, setSentenceWhisper}) => {
         setRecordingDone(false)
         setSentenceWhisper(response.data) // Sets the sentence check to be shown
         console.log("sentenceWhisper is ", sentenceWhisper)
-        intervalRef.current = setInterval(
+        /*intervalRef.current = setInterval(
           transcribeInterim,
           transcribeTimeout * 1000
-        );
+        );*/
       })
       .catch(function (error) {
         console.log("error : error");
@@ -316,9 +317,9 @@ export default ({sentenceWhisper, setSentenceWhisper}) => {
             buttonStyle={{ backgroundColor: 'red' }}
           />
         )}
-        {recordingDone && (
+        {/*recordingDone && (
           <Button title="Transcribe" buttonStyle={{ backgroundColor: '#FFC107' }} onPress={() => transcribeRecording()} />
-          )}
+        )*/}
         
         {/*getRecordingLines()*/}
 
@@ -332,13 +333,6 @@ export default ({sentenceWhisper, setSentenceWhisper}) => {
       ) : (
         <View></View>
       ) }
-
-      <View style={styles.transcription}>
-        <TranscribedOutput
-          transcribedText={transcribedData}
-          interimTranscribedText={interimTranscribedData}
-        />
-      </View>
     </View>
   );
 };
