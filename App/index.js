@@ -162,9 +162,10 @@ function Home({navigation}) {
 // Retrieve sentences DONE
 // Get whisper working DONE
 // Card colors by type 
-// Add Korean TODAY
+// Add Korean DONE
 // Add phrase translations toggle DONE
-// GPT3 sentence coloring
+// GPT3 sentence coloring TOMORROW
+// Improve login and flow TOMORROW
 // Say! button add DONE
 // Say! button AI DONE
 // GPT3 chat response
