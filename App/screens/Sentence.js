@@ -15,6 +15,9 @@ const Sentence = ({ words, setWords, forward, setForward, translations, setTrans
     // Set translation placeholder
     const [sentenceEn, setSentenceEn] = useState(null)
 
+    // Create Whisper sentence
+    const [sentenceWhisper, setSentenceWhisper] = useState("no whisper yet")
+
     // Set initial empty sentence
 
     const sentenceInit = [
@@ -144,7 +147,14 @@ const Sentence = ({ words, setWords, forward, setForward, translations, setTrans
         <View>
             <View style={styles.topContainer}>
                 <View style={styles.buttonContainer}>
-                    <SaveSentence sentence={sentence} setText={setText} setSentenceEn={setSentenceEn} sentenceEn={sentenceEn}/>
+                    <SaveSentence 
+                        sentence={sentence} 
+                        setText={setText} 
+                        setSentenceEn={setSentenceEn} 
+                        sentenceEn={sentenceEn}
+                        sentenceWhisper={sentenceWhisper}
+                        setSentenceWhisper={setSentenceWhisper}
+                        />
                 </View>
                 <View style={styles.switchContainer}>
                     <Switch
@@ -157,6 +167,7 @@ const Sentence = ({ words, setWords, forward, setForward, translations, setTrans
             <View style={styles.textContainer}>
                 <Text style={styles.text}>{text}</Text>
                 {sentenceTranslation()}
+                <Text>{sentenceWhisper}</Text>
             </View>
             <ScrollView contentContainerStyle={styles.container}>
                 {(sentence || []).map(

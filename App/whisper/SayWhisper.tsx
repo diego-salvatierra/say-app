@@ -12,8 +12,10 @@ import axios from "axios";
 import Mode from './Mode';
 import TranscribedOutput from "./TranscribeOutput";
 
-export default () => {
+export default ({sentenceWhisper, setSentenceWhisper}) => {
+  console.log("sentenceWhisper is ", sentenceWhisper)
   const [recording, setRecording] = React.useState(false as any);
+  const [recordingDone, setRecordingDone] = React.useState(false);
   const [recordings, setRecordings] = React.useState([]);
   const [message, setMessage] = React.useState("");
   const [transcribedData, setTranscribedData] = React.useState([] as any);
@@ -212,6 +214,7 @@ export default () => {
       file: recording.getURI(),
     });
     setRecordings(updatedRecordings);
+    setRecordingDone(true); // Added to change the button to play
     console.log("Recording stopped and stored at", uri);
     // Fetch audio binary blob data
 
@@ -280,10 +283,13 @@ export default () => {
       },
     })
       .then(function (response) {
-        console.log("response :", response);
+        console.log("response.data :", response.data);
         setTranscribedData((oldData: any) => [...oldData, response.data]);
         setLoading(false);
         setIsTranscribing(false);
+        setRecordingDone(false)
+        setSentenceWhisper(response.data) // Sets the sentence check to be shown
+        console.log("sentenceWhisper is ", sentenceWhisper)
         intervalRef.current = setInterval(
           transcribeInterim,
           transcribeTimeout * 1000
@@ -298,40 +304,25 @@ export default () => {
     }
   }
   return (
-    <View style={styles.root}>
-      <View style={{ flex: 1 }}>
-        <Text style={styles.title}>Speech to Text. </Text>
-        <Text style={styles.title}>{message}</Text>
-      </View>
-      <View style={styles.settingsSection}>
-        <Mode
-          disabled={isTranscribing || isRecording}
-          possibleLanguages={supportedLanguages}
-          selectedLanguage={selectedLanguage}
-          onLanguageChange={setSelectedLanguage}
-          modelOptions={modelOptions}
-          selectedModel={selectedModel}
-          onModelChange={setSelectedModel}
-          transcribeTimeout={transcribeTimeout}
-          onTranscribeTiemoutChanged={handleTranscribeTimeoutChange}
-        />
-      </View>
-      <View style={styles.buttonsSection}>
-        {!isRecording && !isTranscribing && (
-          <Button onPress={startRecording} title="Start recording" />
+    <View style={styles.container}>
+        {!isRecording && !isTranscribing && !recordingDone && (
+          <Button buttonStyle={{ backgroundColor: '#FFC107' }} onPress={startRecording} title="Say it!" />
         )}
-        {(isRecording || isTranscribing) && (
+        {(isRecording || isTranscribing) && !recordingDone && (
           <Button
             onPress={stopRecording}
             disabled={stopTranscriptionSessionRef.current}
-            title="stop recording"
+            title="Done!"
+            buttonStyle={{ backgroundColor: 'red' }}
           />
         )}
-        <Button title="Transcribe" onPress={() => transcribeRecording()} />
-        {getRecordingLines()}
-      </View>
+        {recordingDone && (
+          <Button title="Transcribe" buttonStyle={{ backgroundColor: '#FFC107' }} onPress={() => transcribeRecording()} />
+          )}
+        
+        {/*getRecordingLines()*/}
 
-      {isLoading !== false ? (
+      { isLoading !== false ? (
         <ActivityIndicator
           size="large"
           color="#00ff00"
@@ -339,8 +330,8 @@ export default () => {
           animating={true}
         />
       ) : (
-        <Text></Text>
-      )}
+        <View></View>
+      ) }
 
       <View style={styles.transcription}>
         <TranscribedOutput
@@ -359,6 +350,8 @@ const styles = StyleSheet.create({
     alignItems: "center",
     textAlign: "center",
     flexDirection: "column",
+  },
+  container: {
   },
   title: {
     marginTop: 40,

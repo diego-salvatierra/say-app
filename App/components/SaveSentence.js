@@ -5,6 +5,7 @@ import React, { useState, useEffect } from 'react';
 import SentenceTest from "./SentenceTest";
 import SentenceFixer from "./SentenceFixer";
 import SaveButton from "./SaveButton";
+import SayWhisper from "../whisper/SayWhisper";
 
 const styles = StyleSheet.create({
     buttonContainer: {
@@ -24,7 +25,7 @@ const styles = StyleSheet.create({
     }
 })
 
-const SaveSentence = ({ sentence, setText, setSentenceEn, sentenceEn}) => {
+const SaveSentence = ({ sentence, setText, setSentenceEn, sentenceEn, sentenceWhisper, setSentenceWhisper}) => {
 
     /*useEffect(() => {
             alert("Your sentence is " + savedSentence)
@@ -87,6 +88,21 @@ const SaveSentence = ({ sentence, setText, setSentenceEn, sentenceEn}) => {
                         setSentenceEn={setSentenceEn}
                     />
     }
+    
+    // Say! button
+
+    let sayButton
+
+    if (sentenceReady===false) {
+        sayButton = 
+            <View>
+                <Button buttonStyle={{ backgroundColor: '#B7B7B7' }} onPress={ () => {alert("Add a few more words :) ") } }>Say it!</Button>
+            </View>
+    }
+
+    if (sentenceReady===true) {
+        sayButton = <SayWhisper sentenceWhisper={sentenceWhisper} setSentenceWhisper={setSentenceWhisper}/>
+    }
 
     return (
         <View style={styles.buttonContainer}>
@@ -98,6 +114,7 @@ const SaveSentence = ({ sentence, setText, setSentenceEn, sentenceEn}) => {
                 setSentenceChecked={setSentenceChecked}
                 sentenceEn={sentenceEn}
             />
+            { sayButton }
         </View>
     );
 };
