@@ -29,7 +29,7 @@ const SaveButton = ({sentence, savedSentence, sentenceChecked, setSentenceChecke
             created_at: new Date().toISOString(), 
             user: session.user.id, 
             sentence: savedSentence, 
-            language: "es", 
+            language: "ko", 
             type: "basic", 
             blocks: sentence,
             translation: sentenceEn

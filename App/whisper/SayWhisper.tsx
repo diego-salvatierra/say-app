@@ -262,7 +262,7 @@ export default ({sentenceWhisper, setSentenceWhisper}) => {
     const filename = uri.split("/").pop();
     setLoading(true);
     const formData: any = new FormData();
-    formData.append("language", "spanish");
+    formData.append("language", "ko");
     formData.append("model_size", "small");
     formData.append(
       "audio_data",
