@@ -2,6 +2,18 @@ import React from "react";
 import { View, TouchableOpacity, Button, Text, StyleSheet} from "react-native";
 import { Card } from "@rneui/themed";
 import { DraxProvider, DraxView } from 'react-native-drax';
+import { Configuration, OpenAIApi } from "openai";
+import { OPENAI_API_KEY } from "react-native-dotenv"
+
+// Set up GPT3
+
+const configuration = new Configuration({
+  apiKey: OPENAI_API_KEY,
+});
+
+const openai = new OpenAIApi(configuration);
+
+
 
 const SentenceCard = ( {sentence, translation, translations} ) => {
 
@@ -20,9 +32,19 @@ const SentenceCard = ( {sentence, translation, translations} ) => {
         }
     }
 
+    const gptResponse = (sentence) => {
+        console.log("sentence  in GPT3 is ", sentence)
+        openai.createCompletion({
+          model: "text-davinci-003",
+          prompt: `Respond to the following sentence, in the language you identify: ${sentence}`,
+          temperature: 0.7,
+          max_tokens: 100,
+        }).then(response => alert(response.data.choices[0].text.trim()))
+    } 
+
     return (
         <View style={{width : '100%'}}>
-            <TouchableOpacity style={styles.sentenceCard}>
+            <TouchableOpacity onPress={() => gptResponse(sentence)} style={styles.sentenceCard}>
                 <Text style={styles.text}>{sentence}</Text>
                 {sentenceTranslation()}
             </TouchableOpacity>

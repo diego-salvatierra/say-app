@@ -2,6 +2,7 @@ import { Text, View, StyleSheet } from "react-native";
 
 const AnalyzeWord= ({ word, id }) => {
     console.log("word.said is ", word.said)
+    
     if (word.said) {
         return (
             <View>

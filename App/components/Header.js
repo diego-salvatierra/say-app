@@ -1,14 +1,17 @@
-import { StyleSheet, Text, View, Image } from 'react-native';
+import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
 import Logo from "../../assets/logo.svg"
 import Hamburger from "../../assets/hamburger.svg"
 import { supabase } from '../lib/supabase';
 import { Session } from '@supabase/supabase-js'
+import { DrawerActions } from '@react-navigation/native';
 
-const Header = () => {
+const Header = (navigation) => {
   return (
     <View style={styles.container}>
       <Logo />
-      <Hamburger/>
+      <TouchableOpacity onPress={() => navigation.dispatch(DrawerActions.openDrawer())}>
+        <Hamburger/>
+      </TouchableOpacity>
     </View>
   )
 }

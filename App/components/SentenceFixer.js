@@ -34,8 +34,10 @@ const SentenceFixer = ({ sentence,
 
     for (let i = 0; i < sentence.length; i++) {
         console.log("sentence i word ", sentence[i].word )
-        sentenceFixInit = sentenceFixInit.concat(sentence[i].word, " ")
-        console.log("building sentence ", sentenceFixInit)
+        if (sentence[i].id >= 0) {
+          sentenceFixInit = sentenceFixInit.concat(sentence[i].word, " ")
+          console.log("building sentence ", sentenceFixInit)
+        }
     }
 
     console.log("sentenceFixInit is ", sentenceFixInit)
@@ -54,7 +56,7 @@ const SentenceFixer = ({ sentence,
         let sentenceAnalyzedTemp = []
         let id = 0
         for (let i = 0; i < inputArray.length; i++) {
-          sentenceAnalyzedTemp.push({id: id, word: inputArray[i], said:false}); 
+          sentenceAnalyzedTemp.push({id: id, word: inputArray[i].replaceAll(".",""), said:false}); 
           id++
         }
         setSentenceAnalyzed(sentenceAnalyzedTemp)
@@ -63,8 +65,8 @@ const SentenceFixer = ({ sentence,
     const fixSentence = () => {
       openai.createCompletion({
         model: "text-davinci-003",
-        prompt: `Correct the following sentence, in ${lang}: ${sentenceInput}`,
-        temperature: 0.7,
+        prompt: `Make a simple sentence in ${lang} using only these words: ${sentenceInput} Do not add new words like "some" or "delicious"`,
+        temperature: 0,
         max_tokens: 100,
       }).then(response => saveSentenceText(response.data.choices[0].text.trim()))
     } 

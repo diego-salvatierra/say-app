@@ -127,6 +127,7 @@ const SaveSentence = ({ sentence,
                 sentenceChecked={sentenceChecked}
                 setSentenceChecked={setSentenceChecked}
                 sentenceEn={sentenceEn}
+                langCode={langCode}
             />
             { sayButton }
         </View>

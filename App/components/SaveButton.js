@@ -5,7 +5,7 @@ import { supabase, supabaseUrl} from '../lib/supabase';
 import googleTranslate from '../lib/googleTranslate';
 
 
-const SaveButton = ({sentence, savedSentence, sentenceChecked, setSentenceChecked, sentenceEn}) => {
+const SaveButton = ({sentence, savedSentence, sentenceChecked, setSentenceChecked, sentenceEn, langCode}) => {
 
     // Retrieve user session
 
@@ -29,7 +29,7 @@ const SaveButton = ({sentence, savedSentence, sentenceChecked, setSentenceChecke
             created_at: new Date().toISOString(), 
             user: session.user.id, 
             sentence: savedSentence, 
-            language: "ko", 
+            language: langCode, 
             type: "basic", 
             blocks: sentence,
             translation: sentenceEn

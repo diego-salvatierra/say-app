@@ -141,6 +141,7 @@ const Sentence = ({ words, setWords, forward, setForward, translations, setTrans
     }
 
     const sentenceTranslation = () => {
+        console.log("translations is", translations)
         if (translations===true) {
             return (
                 <Text style={styles.translationText}>{sentenceEn}</Text>
@@ -155,9 +156,7 @@ const Sentence = ({ words, setWords, forward, setForward, translations, setTrans
     useEffect(() => {
         console.log("sentenceWhisper is ", sentenceWhisper)
         for (let i = 0; i < sentenceAnalyzed.length; i++) {
-            console.log("sentenceAnalyzed is ", sentenceAnalyzed)
             let interimState = [...sentenceAnalyzed]
-            console.log("interimState is ", interimState)
             if (sentenceWhisper.includes(sentenceAnalyzed[i].word)) {
                 interimState[i].said = true
                 setSentenceAnalyzed(interimState)
@@ -166,7 +165,6 @@ const Sentence = ({ words, setWords, forward, setForward, translations, setTrans
       }, [sentenceWhisper])
 
     const analyzeSentence = () => {
-        console.log("sentenceAnalyzed RERENDER is ", sentenceAnalyzed)
         return (
             <View style={styles.sentenceAnalyzed}>
                     {sentenceAnalyzed.map(
@@ -228,6 +226,7 @@ const Sentence = ({ words, setWords, forward, setForward, translations, setTrans
             </View>
             <View style={styles.textContainer}>
                 {setWhispered()}
+                {sentenceTranslation()}
             </View>
             <ScrollView contentContainerStyle={styles.container}>
                 {(sentence || []).map(

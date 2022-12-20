@@ -47,23 +47,23 @@ const Phrasebook = () => {
 
   useEffect(() => {
     const fetchSentences = async () => {
-
-        const { data, error } = await supabase
-        .from('sentences')
-        .select('sentence, id, translation')
-        .eq('user', session.user.id)  
-    
-        if (error) alert(error.message)
-    
-        if (data) {
-            setSentences(data)
+        if (session) {
+            const { data, error } = await supabase
+            .from('sentences')
+            .select('sentence, id, translation')
+            .eq('user', session.user.id)
+            .not("translation","is", null);
+        
+            if (error) alert(error.message)
+        
+            if (data) {
+                setSentences(data)
+            }
         }
-    
     }
 
     fetchSentences()
-  }, [])
-
+  }, [session])
 
  return (  
     <View style={styles.container}>      

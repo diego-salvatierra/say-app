@@ -43,7 +43,7 @@ const PAGE_HEIGHT = Dimensions.get('window').height;
 
 // Google login
 
-export const googleSignIn = async () => {
+const googleSignIn = async (session, setSession, navigation) => {
   // This will create a redirectUri
   // This should be the URL you added to "Redirect URLs" in Supabase URL Configuration
   // If they are different add the value of redirectUrl to your Supabase Redirect URLs
@@ -68,12 +68,14 @@ export const googleSignIn = async () => {
       access_token: authResponse.params.access_token,
       refresh_token: authResponse.params.refresh_token,
     })
+    setSession(session)
+    navigation.navigate('Home')
   }
 };
 
 // Logout 
 
-const LogOut = () => {
+/*const LogOut = () => {
 
   // Retrieve session
 
@@ -87,7 +89,7 @@ const LogOut = () => {
     supabase.auth.onAuthStateChange((_event, session) => {
       setSession(session)
     })
-  }, [])
+  }, [session])
 
   if (session?.user) {
     return (
@@ -97,11 +99,24 @@ const LogOut = () => {
   else {
     return null
   }
-} 
+} */
+const LogIn = ({navigation}) => {
 
-// Email & password login
+  // Retrieve current session
 
-const LogIn = () => {
+  const [session, setSession] = useState()
+
+  useEffect(() => {
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      setSession(session)
+    })
+
+    supabase.auth.onAuthStateChange((_event, session) => {
+      setSession(session)
+    })
+  }, [session])
+
+  // Email & password login
 
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
@@ -128,8 +143,6 @@ const LogIn = () => {
     if (error) alert(error.message)
     setLoading(false)
   }
-
-
 
  return (        
     <View style={styles.container}>
@@ -175,12 +188,9 @@ const LogIn = () => {
         <View>
           <Button buttonStyle={{ backgroundColor: 'transparent', borderColor: '#FFC107', borderWidth: 1, marginRight: 10}} title="Sign up" disabled={loading} onPress={() => signUpWithEmail()} />
         </View>
-        <View>
-          {LogOut()}
-        </View>
       </View>
     <View style={styles.bottomContent}>
-     <TouchableOpacity style={styles.googleButton} onPress={() => googleSignIn()}>
+     <TouchableOpacity style={styles.googleButton} onPress={() => googleSignIn(session, setSession, navigation)}>
       <Image
        style={styles.googleIcon}
        source={{
