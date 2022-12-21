@@ -1,4 +1,4 @@
-import { View, StyleSheet, Dimensions} from 'react-native';
+import { View, StyleSheet, Dimensions, TouchableOpacity} from 'react-native';
 import React, { useState, useEffect} from 'react';
 //import { Button } from '@rneui/base';
 import 'react-native-gesture-handler';
@@ -8,6 +8,7 @@ import { Button } from '@rneui/themed'
 import Logo from '../../assets/logo.svg'
 import WordCard from '../components/WordCard';
 import { supabase, supabaseUrl} from '../lib/supabase';
+import DraggableWord from '../components/DraggableWord';
 
 
 const PAGE_HEIGHT = Dimensions.get('window').height;
@@ -116,8 +117,8 @@ function Home({navigation}) {
         // Retrieve session
       
         const [session, setSession] = useState()
-      
-        useEffect(() => {
+
+        if (session==null) {
           supabase.auth.getSession().then(({ data: { session } }) => {
             setSession(session)
           })
@@ -125,12 +126,12 @@ function Home({navigation}) {
           supabase.auth.onAuthStateChange((_event, session) => {
             setSession(session)
           })
-        }, [session])
+        }
       
         if (!session?.user) {
           return (
             <View>
-                <Button buttonStyle={{ backgroundColor: '#FFC107' }} onPress={() => navigation.navigate('LogIn')}>Login</Button>
+                <Button buttonStyle={{ backgroundColor: '#FFC107' }} onPress={() => navigation.navigate('LogIn', {session: session, setSession: setSession})}>Login</Button>
             </View>
             )
         }
@@ -140,8 +141,10 @@ function Home({navigation}) {
                 <View>
                     <Button buttonStyle={{ backgroundColor: '#FFC107' }} onPress={() => supabase.auth.signOut()}>Log Out</Button>
                 </View>
-                <Draggable style={styles.buttonContainer}>
-                    <Button buttonStyle={{ backgroundColor: '#FFC107' }} onPress={() => navigation.navigate('Build', {words: wordsKo, setWords: setWordsKo, lang: "Korean", langCode: "ko"})}>Korean</Button>
+                <Draggable>
+                  <TouchableOpacity onPress={() => navigation.navigate('Build', {words: wordsKo, setWords: setWordsKo, lang: "Korean", langCode: "ko"})}>                  
+                    <WordCard word={"Korean"} translations={"한국어"}/>          
+                </TouchableOpacity>
                 </Draggable>
                 <Draggable style={styles.buttonContainer}>
                     <Button buttonStyle={{ backgroundColor: '#FFC107' }} onPress={() => navigation.navigate('Build', {words: wordsEs, setWords: setWordsEs, lang: "Spanish", langCode: "es"})}>Spanish</Button>

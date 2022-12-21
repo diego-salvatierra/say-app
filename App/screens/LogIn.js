@@ -44,6 +44,8 @@ const PAGE_HEIGHT = Dimensions.get('window').height;
 // Google login
 
 const googleSignIn = async (session, setSession, navigation) => {
+
+  console.log("setSession is", setSession)
   // This will create a redirectUri
   // This should be the URL you added to "Redirect URLs" in Supabase URL Configuration
   // If they are different add the value of redirectUrl to your Supabase Redirect URLs
@@ -68,7 +70,13 @@ const googleSignIn = async (session, setSession, navigation) => {
       access_token: authResponse.params.access_token,
       refresh_token: authResponse.params.refresh_token,
     })
-    setSession(session)
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      setSession(session)
+    })
+
+    supabase.auth.onAuthStateChange((_event, session) => {
+      setSession(session)
+    }) 
     navigation.navigate('Home')
   }
 };
@@ -100,11 +108,13 @@ const googleSignIn = async (session, setSession, navigation) => {
     return null
   }
 } */
-const LogIn = ({navigation}) => {
+const LogIn = ({navigation, route}) => {
 
-  // Retrieve current session
+  // Import params
+  const session = route.params.session;
+  const setSession= route.params.setSession;
 
-  const [session, setSession] = useState()
+  // const [session, setSession] = useState()
 
   useEffect(() => {
     supabase.auth.getSession().then(({ data: { session } }) => {
