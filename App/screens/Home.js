@@ -141,17 +141,13 @@ function Home({navigation}) {
                 <View>
                     <Button buttonStyle={{ backgroundColor: '#FFC107' }} onPress={() => supabase.auth.signOut()}>Log Out</Button>
                 </View>
-                <Draggable>
-                  <TouchableOpacity onPress={() => navigation.navigate('Build', {words: wordsKo, setWords: setWordsKo, lang: "Korean", langCode: "ko"})}>                  
-                    <WordCard word={"Korean"} translations={"한국어"}/>          
-                </TouchableOpacity>
-                </Draggable>
-                <Draggable style={styles.buttonContainer}>
+                <View style={styles.buttonContainer}>
+                    <Button buttonStyle={{ backgroundColor: '#FFC107', marginRight: 30}} onPress={() => navigation.navigate('Build', {words: wordsKo, setWords: setWordsKo, lang: "Korean", langCode: "ko"})}>Korean</Button>            
                     <Button buttonStyle={{ backgroundColor: '#FFC107' }} onPress={() => navigation.navigate('Build', {words: wordsEs, setWords: setWordsEs, lang: "Spanish", langCode: "es"})}>Spanish</Button>
-                </Draggable>           
-                <Draggable>
-                    <Button buttonStyle={{ backgroundColor: '#FFC107' }} onPress={() => navigation.navigate('Phrasebook')}>Phrasebook</Button>
-                </Draggable>
+                </View>
+                <View style={styles.phrasebookContainer}>
+                    <Button buttonStyle={{ backgroundColor: '#FFC107', width: 120}} onPress={() => navigation.navigate('Phrasebook')}>Phrasebook</Button>
+                </View>
             </View>
           )
         }
@@ -197,10 +193,18 @@ function Home({navigation}) {
     },
     buttonContainer: {
       position: 'absolute',
-      top: 20,
-      right: PAGE_WIDTH/2,
-      zIndex: 1,
+      alignItems: 'center',
+      justifyContent: 'center',
+      flexDirection: 'row',
+      top: PAGE_HEIGHT/8,
+      right: -25,
     },
+    phrasebookContainer: {
+      position: 'absolute',
+      top: PAGE_HEIGHT/4,
+      left: -15,
+
+    }
   
   })
 
