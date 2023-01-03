@@ -95,9 +95,16 @@ const PAGE_WIDTH = Dimensions.get('window').width;
 // GPT3 chat response DONE
 // Video DONE
 
-// New features for Testflight
-/// Login flow - simple
-/// Login flow - context
+// New features
+/// Login flow - simple DONE
+/// Fix hamburger menu DONE
+/// Fix home layout DONE
+/// Login flow - context TODAY
+/// BUG: Login reset TODAY
+/// Fix button order, Save at the end upon successful Say!, Ready in gray at first
+/// BUG: ability to Ready new sentence
+/// BUG: New language resets sentence
+/// Eliminate audio recording alert DONE
 /// Unfilled boxes styling 
 /// Wordset generation
 /// Add words
@@ -107,6 +114,11 @@ const PAGE_WIDTH = Dimensions.get('window').width;
 /// GPT3 sentence coloring
 /// Debugging/clean up
 
+// Deployment
+/// ngrok permanent --> pay
+/// flask permanent --> heroku
+/// permanent site for google login
+/// github reorg
 
 //Other
 /// Nudges for spaced repetition

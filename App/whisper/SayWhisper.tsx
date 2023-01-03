@@ -160,7 +160,7 @@ export default ({sentenceWhisper, setSentenceWhisper}) => {
           allowsRecordingIOS: true,
           playsInSilentModeIOS: true,
         });
-        alert("Starting recording..");
+        // alert("Starting recording..");
         const RECORDING_OPTIONS_PRESET_HIGH_QUALITY: any = {
           android: {
             extension: ".mp4",
@@ -275,7 +275,7 @@ export default ({sentenceWhisper, setSentenceWhisper}) => {
     );
     console.log("formData sent is", formData)
     axios({
-      url: "https://775b-71-198-36-197.ngrok.io/transcribe", // IMPORTANT! must equal current ngrok server
+      url: "https://45fb-2803-9810-30f4-aa10-7d76-834-9c8b-702d.sa.ngrok.io/transcribe", // IMPORTANT! must equal current ngrok server
       method: "POST",
       data: formData,
       headers: {

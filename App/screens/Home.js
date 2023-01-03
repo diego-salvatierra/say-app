@@ -1,4 +1,4 @@
-import { View, StyleSheet, Dimensions, TouchableOpacity} from 'react-native';
+import { View, StyleSheet, Dimensions, Text} from 'react-native';
 import React, { useState, useEffect} from 'react';
 //import { Button } from '@rneui/base';
 import 'react-native-gesture-handler';
@@ -112,21 +112,20 @@ function Home({navigation}) {
     const [wordsKo, setWordsKo] = useState(initialWordsKo);
     const [wordsEs, setWordsEs] = useState(initialWordsEs);
 
-    const renderButtons = () => {
-
-        // Retrieve session
+    // Retrieve session
       
-        const [session, setSession] = useState()
-
-        if (session==null) {
-          supabase.auth.getSession().then(({ data: { session } }) => {
-            setSession(session)
-          })
+    const [session, setSession] = useState()
       
-          supabase.auth.onAuthStateChange((_event, session) => {
-            setSession(session)
-          })
-        }
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      setSession(session)
+    })
+  
+    supabase.auth.onAuthStateChange((_event, session) => {
+      setSession(session)
+    })
+
+
+    const renderButtons = () => { 
       
         if (!session?.user) {
           return (
@@ -135,18 +134,24 @@ function Home({navigation}) {
             </View>
             )
         }
+
         if (session?.user) {
           return (
             <View>
-                <View>
-                    <Button buttonStyle={{ backgroundColor: '#FFC107' }} onPress={() => supabase.auth.signOut()}>Log Out</Button>
-                </View>
-                <View style={styles.buttonContainer}>
-                    <Button buttonStyle={{ backgroundColor: '#FFC107', marginRight: 30}} onPress={() => navigation.navigate('Build', {words: wordsKo, setWords: setWordsKo, lang: "Korean", langCode: "ko"})}>Korean</Button>            
-                    <Button buttonStyle={{ backgroundColor: '#FFC107' }} onPress={() => navigation.navigate('Build', {words: wordsEs, setWords: setWordsEs, lang: "Spanish", langCode: "es"})}>Spanish</Button>
-                </View>
-                <View style={styles.phrasebookContainer}>
-                    <Button buttonStyle={{ backgroundColor: '#FFC107', width: 120}} onPress={() => navigation.navigate('Phrasebook')}>Phrasebook</Button>
+                <View style={styles.textContainer}>
+                  <Text style={styles.mainText}>Choose a language</Text>
+                </View>     
+                <View style={styles.buttonsContainer}>
+                  <View style={styles.buttonContainer}>
+                      <Button buttonStyle={{ backgroundColor: '#FFC107', marginRight: 30}} onPress={() => navigation.navigate('Build', {words: wordsKo, setWords: setWordsKo, lang: "Korean", langCode: "ko"})}>Korean</Button>            
+                      <Button buttonStyle={{ backgroundColor: '#FFC107' }} onPress={() => navigation.navigate('Build', {words: wordsEs, setWords: setWordsEs, lang: "Spanish", langCode: "es"})}>Spanish</Button>
+                  </View>
+                  <View style={styles.phrasebookContainer}>
+                      <Button buttonStyle={{ backgroundColor: '#FFC107', width: 120}} onPress={() => navigation.navigate('Phrasebook')}>Phrasebook</Button>
+                  </View>
+                  <View style={styles.logOutContainer}>
+                      <Button buttonStyle={{ backgroundColor: '#FFC107' }} onPress={() => supabase.auth.signOut()}>Log Out</Button>
+                  </View>
                 </View>
             </View>
           )
@@ -154,35 +159,23 @@ function Home({navigation}) {
       } 
   
     return (
-      <View style={styles.homeContainer}>
+      <View style={styles.mainContainer}>
         <LinearGradient 
         colors={['#9F00B9', '#FFDC61']}
         locations={[0, .99]}
         style={styles.linearGradient}
         />
-        <View style={styles.topContainer}>
-            <Logo />
-        </View>
-        <View style={styles.bottomContainer}>
-            {renderButtons()}
+        <View style={styles.bottomContainer}>                    
+          {renderButtons()}
         </View>
       </View>
     )
   }
 
   const styles = StyleSheet.create({
-    homeContainer: {
-      flex: 1, 
-      alignItems: 'center',
-      justifyContent: 'center', 
-      flexDirection: 'column',
-    },
     topContainer: {
-        flex: 1,
-        paddingTop: PAGE_HEIGHT/10,
-    },
-    bottomContainer: {
-        flex: 2,
+      flex: 1,
+      paddingTop: PAGE_HEIGHT/10,
     },
     linearGradient: {
       position: 'absolute',
@@ -191,21 +184,60 @@ function Home({navigation}) {
       right: 0,
       top: 0,    
     },
+    mainContainer: {
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+      justifyContent: 'center', 
+      padding: 10
+    },
+    bottomContainer: {
+      display: 'flex',
+      padding: 10,
+      flexDirection: 'column',
+      justifyContent: 'center',
+      alignItems: 'center',
+      width: PAGE_WIDTH,
+      height: PAGE_HEIGHT*.8
+  },
+    textContainer: {
+      flexDirection: 'row',
+      justifyContent: 'center',
+      alignItems: 'center',
+      width: PAGE_WIDTH,
+    },
+    mainText: {
+      fontSize: 54,
+      color: "white",
+     },
+    buttonsContainer: {
+      display: 'flex',
+      flexDirection: 'column',
+      justifyContent: 'center',
+      alignItems: 'center',
+      padding: 10
+    },
     buttonContainer: {
-      position: 'absolute',
+      display: 'flex',
       alignItems: 'center',
       justifyContent: 'center',
       flexDirection: 'row',
-      top: PAGE_HEIGHT/8,
-      right: -25,
+      padding: 10
     },
     phrasebookContainer: {
-      position: 'absolute',
-      top: PAGE_HEIGHT/4,
-      left: -15,
-
-    }
-  
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      flexDirection: 'row',
+      padding: 10
+    },
+    logOutContainer: {
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      flexDirection: 'row',
+      padding: 10
+    },      
   })
 
 export default Home

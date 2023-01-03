@@ -6,6 +6,7 @@ import { Session } from '@supabase/supabase-js'
 import { DrawerActions } from '@react-navigation/native';
 
 const Header = (navigation) => {
+  navigation = navigation.navigation
   return (
     <View style={styles.container}>
       <Logo />

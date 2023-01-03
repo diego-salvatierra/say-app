@@ -41,73 +41,6 @@ async function googleSignIn() {
 
 const PAGE_HEIGHT = Dimensions.get('window').height;
 
-// Google login
-
-const googleSignIn = async (session, setSession, navigation) => {
-
-  console.log("setSession is", setSession)
-  // This will create a redirectUri
-  // This should be the URL you added to "Redirect URLs" in Supabase URL Configuration
-  // If they are different add the value of redirectUrl to your Supabase Redirect URLs
-  const redirectUrl = makeRedirectUri({
-    path: '/auth/callback',
-  });
-
-  // authUrl: https://{YOUR_PROJECT_REFERENCE_ID}.supabase.co
-  // returnURL: the redirectUrl you created above.
-  const authResponse = await startAsync({
-    authUrl: `https://oztnyyvptigozambngap.supabase.co/auth/v1/authorize?provider=google&redirect_to=${redirectUrl}`,
-    returnUrl: redirectUrl,
-  });
-
-  // If the user successfully signs in
-  // we will have access to an accessToken and an refreshToken
-  // and then we'll use setSession (https://supabase.com/docs/reference/javascript/auth-setsession)
-  // to create a Supabase-session using these token
-  if (authResponse.type === 'success') {
-    console.log("Success!", authResponse.params)
-    supabase.auth.setSession({
-      access_token: authResponse.params.access_token,
-      refresh_token: authResponse.params.refresh_token,
-    })
-    supabase.auth.getSession().then(({ data: { session } }) => {
-      setSession(session)
-    })
-
-    supabase.auth.onAuthStateChange((_event, session) => {
-      setSession(session)
-    }) 
-    navigation.navigate('Home')
-  }
-};
-
-// Logout 
-
-/*const LogOut = () => {
-
-  // Retrieve session
-
-  const [session, setSession] = useState()
-
-  useEffect(() => {
-    supabase.auth.getSession().then(({ data: { session } }) => {
-      setSession(session)
-    })
-
-    supabase.auth.onAuthStateChange((_event, session) => {
-      setSession(session)
-    })
-  }, [session])
-
-  if (session?.user) {
-    return (
-      <Button buttonStyle={{ backgroundColor: '#FFC107' }} onPress={() => supabase.auth.signOut()}>Log Out</Button>
-    )
-  }
-  else {
-    return null
-  }
-} */
 const LogIn = ({navigation, route}) => {
 
   // Import params
@@ -125,6 +58,52 @@ const LogIn = ({navigation, route}) => {
       setSession(session)
     })
   }, [session])
+
+  // Google login
+
+  const googleSignIn = async (session, setSession, navigation) => {
+
+    console.log("setSession is", setSession)
+    console.log("session is", session)
+    // This will create a redirectUri
+    // This should be the URL you added to "Redirect URLs" in Supabase URL Configuration
+    // If they are different add the value of redirectUrl to your Supabase Redirect URLs
+    const redirectUrl = makeRedirectUri({
+      path: '/auth/callback',
+    });
+
+    // authUrl: https://{YOUR_PROJECT_REFERENCE_ID}.supabase.co
+    // returnURL: the redirectUrl you created above.
+    const authResponse = await startAsync({
+      authUrl: `https://oztnyyvptigozambngap.supabase.co/auth/v1/authorize?provider=google&redirect_to=${redirectUrl}`,
+      returnUrl: redirectUrl,
+    });
+
+    // If the user successfully signs in
+    // we will have access to an accessToken and an refreshToken
+    // and then we'll use setSession (https://supabase.com/docs/reference/javascript/auth-setsession)
+    // to create a Supabase-session using these token
+    if (authResponse.type === 'success') {
+      console.log("Success!", authResponse.params)
+      await supabase.auth.setSession({
+        access_token: authResponse.params.access_token,
+        refresh_token: authResponse.params.refresh_token,
+      })
+      await supabase.auth.getSession().then(({ data: { session } }) => {
+        setSession(session)        
+      })
+      
+      /*setSession({
+        access_token: authResponse.params.access_token,
+        refresh_token: authResponse.params.refresh_token,
+      })*/
+      /*
+      supabase.auth.onAuthStateChange((_event, session) => {
+        setSession(session)
+      }) */
+      navigation.navigate('Home')
+    }
+  };
 
   // Email & password login
 
