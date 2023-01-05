@@ -275,7 +275,7 @@ export default ({sentenceWhisper, setSentenceWhisper}) => {
     );
     console.log("formData sent is", formData)
     axios({
-      url: "https://45fb-2803-9810-30f4-aa10-7d76-834-9c8b-702d.sa.ngrok.io/transcribe", // IMPORTANT! must equal current ngrok server
+      url: "https://c54d-138-84-33-95.sa.ngrok.io/transcribe", // IMPORTANT! must equal current ngrok server
       method: "POST",
       data: formData,
       headers: {

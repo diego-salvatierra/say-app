@@ -1,21 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { Dimensions, View, TouchableOpacity, useWindowDimensions, StyleSheet, ScrollView, Text} from "react-native";
-import { NavigationContainer } from '@react-navigation/native';
-import { NativeBaseProvider, Box, VStack, Divider, HStack, Icon} from 'native-base';
-import { Card } from "@rneui/themed";
-import WordCard from '../components/WordCard';
 import { TabView, SceneMap } from 'react-native-tab-view';
-import Draggable from 'react-native-draggable';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { DraxProvider, DraxScrollView } from 'react-native-drax';
 import Sentence from "../screens/Sentence"
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
-import { Button } from "@rneui/themed";
 import DraggableWord from '../components/DraggableWord';
-import TabRow from '../components/TabRow';
 import WordMenu from '../components/WordMenu';
 import Header from '../components/Header';
 import { LinearGradient } from 'expo-linear-gradient'
+import AddWord from '../components/AddWord';
 
 const PAGE_WIDTH = Dimensions.get('window').width;
 const PAGE_HEIGHT = Dimensions.get('window').height;
@@ -59,6 +53,7 @@ export default ({ route }) => {
         wordContainer: {
             flexDirection: 'row',
             flexWrap: 'wrap',
+            justifyContent: 'flex-start',
             backgroundColor: 'rgba(0, 0, 0, 0)',
             paddingLeft: 10,
         },
@@ -104,6 +99,7 @@ export default ({ route }) => {
     const NounRoute = () => (
         <View>
             <DraxScrollView contentContainerStyle={styles.wordContainer}>
+                <AddWord/>
                 {words.filter(obj => {return obj.type === "noun"})
                 .map((word) => <DraggableWord key = {word.id} word={word} translations={translations}/>)}
             </DraxScrollView>

@@ -9,7 +9,7 @@ import AnalyzeWord from '../components/AnalyzeWord';
 
 const Sentence = ({ words, setWords, forward, setForward, translations, setTranslations, lang, langCode}) => {
 
-    // Set instructions
+    // Set instructions and sentence placeholder
 
     const [text, setText] = useState("Drag the words to build your sentence")
 
