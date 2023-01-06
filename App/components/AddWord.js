@@ -1,40 +1,63 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, TouchableOpacity, TextInput, Modal, Text, StyleSheet, Dimensions} from "react-native";
 import Plus from '../../assets/Plus.svg'
 import { Button } from "@rneui/themed"
 import Close from '../../assets/close.svg'
+import { color } from 'react-native-reanimated';
+import { border } from 'native-base/lib/typescript/theme/styled-system';
+import googleTranslateWord from '../lib/googleTranslateWord';
 
 const PAGE_HEIGHT = Dimensions.get('window').height;
 const PAGE_WIDTH = Dimensions.get('window').width;
 
-const AddWord = () => {
+const AddWord = ({ type, setUserWords, userWords, langCode }) => {
 
-    const [inputVisible, setInputVisible] = useState(false)
-    const [inputValue, setInputValue] = useState('');
+    const [modalVisible, setModalVisible] = useState(false)
+    const [text, setText] = useState('');
 
-    const addWord = () => {
-        setInputVisible(true)
+    const [translation, setTranslation] = useState("")
+
+    const addWord = async (word) => {
+            console.log("userWords is", userWords)
+            let id = userWords.length
+            console.log("ID is: ", id)
+            let transTemp = await googleTranslateWord(word, langCode, setTranslation)
+            setTranslation(transTemp)
+            let wordToAdd = {id: id, word: translation, type:type, translation: word}
+            setUserWords(userWords => [...userWords, wordToAdd]);
+            setModalVisible(false)
     }
 
     return (
         <View>
             <View style={styles.container}>
-                <TouchableOpacity style={styles.wordCard} onPress={() => setInputVisible(true)} >
+                <TouchableOpacity style={styles.wordCard} onPress={() => setModalVisible(true)} >
                     <Plus/>
                 </TouchableOpacity>
             </View>
-            <Modal visible={inputVisible} transparent={true}>
+            <Modal visible={modalVisible} transparent={true}>
                 <View style={styles.modalContainer}> 
                     <View style={styles.topContainer}>
-                        <TouchableOpacity onPress={() => setInputVisible(false)}>
+                        <TouchableOpacity onPress={() => setModalVisible(false)}>
                             <Close/>
                         </TouchableOpacity>                        
                     </View>
+                    <Text style={styles.bigText}>Add a new word</Text>
+                    <Text style={styles.lightText}>{"(we'll translate it for you!)"}</Text>
                     <TextInput
-                    value={inputValue}
-                    onChangeText={text => setInputValue(text)}
-                    placeholder="Enter some text"
+                    style={styles.input}
+                    value={text}
+                    onChangeText={text => setText(text)}
+                    placeholder="Enter text"
+                    placeholderTextColor="#B7B7B7"
                     />
+                    <Button 
+                        title="Submit" 
+                        buttonStyle={{ backgroundColor: '#FFC107' }}
+                        onPress={() => addWord(text)}
+                        >
+                            ADD
+                    </Button>
                 </View>
             </Modal>
         </View>
@@ -69,6 +92,20 @@ const styles = StyleSheet.create({
         color: '#030303',
         
     },
+    bigText: {
+        fontSize: 25,
+        height: 30,
+        alignItems: 'center',
+        textAlign: 'center',
+        color: "#000000"
+    },
+    lightText: {
+        fontSize: 25,
+        height: 30,
+        alignItems: 'center',
+        textAlign: 'center',
+        color: "#838383"
+    },
     textLight: {
         fontSize: 10,
         height: 13,
@@ -79,6 +116,16 @@ const styles = StyleSheet.create({
         marginTop: 10,
         
     },
+    input: {
+        height: 30,
+        width: PAGE_WIDTH*.4,
+        backgroundColor: "white",
+        borderColor: "#FFC107",
+        borderWidth: 1,
+        borderRadius: 5,
+        padding: 5,
+        marginVertical: 20
+    },
     modalContainer: {
         display: "flex",
         flexDirection: "column",
@@ -88,7 +135,7 @@ const styles = StyleSheet.create({
         gap: 10,
         
         position: 'absolute',
-        height: PAGE_HEIGHT/5,
+        height: PAGE_HEIGHT/3.5,
         width: PAGE_WIDTH*.8,
         top: PAGE_HEIGHT/3,
         left: PAGE_WIDTH/10,
@@ -97,7 +144,15 @@ const styles = StyleSheet.create({
         borderColor: "#FFC107",
         borderWidth: 1,
         borderRadius: 12
-    }
+    },
+    topContainer: {
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "flex-end",
+        alignItems: "flex-end",
+        padding: 10,
+        width: PAGE_WIDTH*.8,        
+    },
 })
 
 export default AddWord

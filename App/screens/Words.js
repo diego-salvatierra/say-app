@@ -88,6 +88,9 @@ export default ({ route }) => {
 
     //console.log("word is ", words[0])
 
+    // set up state for user adding words
+    const [userWords, setUserWords] = useState([])
+
     // setup tab navigation
 
     const Tab = createMaterialTopTabNavigator();
@@ -99,7 +102,9 @@ export default ({ route }) => {
     const NounRoute = () => (
         <View>
             <DraxScrollView contentContainerStyle={styles.wordContainer}>
-                <AddWord/>
+                <AddWord type="noun" setUserWords={setUserWords} userWords={userWords} langCode={langCode}/> 
+                {userWords.filter ? userWords.filter(obj => {return obj.type === "noun"})
+                .map((word) => <DraggableWord key = {word.id} word={word} translations={translations}/>) : null}
                 {words.filter(obj => {return obj.type === "noun"})
                 .map((word) => <DraggableWord key = {word.id} word={word} translations={translations}/>)}
             </DraxScrollView>
@@ -109,6 +114,7 @@ export default ({ route }) => {
     const VerbRoute = () => (
         <View>
             <DraxScrollView contentContainerStyle={styles.wordContainer}>
+                <AddWord type="verb" setUserWords={setUserWords} userWords={userWords} langCode={langCode}/>
                 {words.filter(obj => {return obj.type === "verb"})
                 .map((word) => <DraggableWord key = {word.id} word={word} translations={translations}/>)}
             </DraxScrollView>
@@ -118,6 +124,7 @@ export default ({ route }) => {
     const AdjectiveRoute = () => (
         <View>
             <DraxScrollView contentContainerStyle={styles.wordContainer}>
+                <AddWord type="adjective" setUserWords={setUserWords} userWords={userWords} langCode={langCode}/>
                 {words.filter(obj => {return obj.type === "adjective"})
                 .map((word) => <DraggableWord key = {word.id} word={word} translations={translations}/>)}
             </DraxScrollView>
@@ -127,6 +134,7 @@ export default ({ route }) => {
     const SubjectRoute = () => (
         <View>
             <DraxScrollView contentContainerStyle={styles.wordContainer}>
+                <AddWord type="adjective" setUserWords={setUserWords} userWords={userWords} langCode={langCode}/>
                 {words.filter(obj => {return obj.type === "subject"})
                 .map((word) => <DraggableWord key = {word.id} word={word} translations={translations}/>)}
             </DraxScrollView>
