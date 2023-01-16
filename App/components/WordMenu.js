@@ -7,14 +7,11 @@ import AppleIcon from '../../assets/apple.svg'
 
 const WordMenu = ({ state, navigation, forward, setForward }) => {
 
-  console.log("state is ", state)
-  console.log("in WORDMENU, forward is ", forward)
 
   // Move forward if new word entered
 
   useEffect(() => {
     if (forward !== "") {
-      console.log("forward is now", forward)
       navigation.navigate(forward);
       setForward("")
     }

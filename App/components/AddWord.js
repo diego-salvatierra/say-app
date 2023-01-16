@@ -3,30 +3,70 @@ import { View, TouchableOpacity, TextInput, Modal, Text, StyleSheet, Dimensions}
 import Plus from '../../assets/Plus.svg'
 import { Button } from "@rneui/themed"
 import Close from '../../assets/close.svg'
-import { color } from 'react-native-reanimated';
-import { border } from 'native-base/lib/typescript/theme/styled-system';
 import googleTranslateWord from '../lib/googleTranslateWord';
+import { supabase } from '../lib/supabase';
 
 const PAGE_HEIGHT = Dimensions.get('window').height;
 const PAGE_WIDTH = Dimensions.get('window').width;
 
 const AddWord = ({ type, setUserWords, userWords, langCode }) => {
 
+    // Create variables for modal
+
     const [modalVisible, setModalVisible] = useState(false)
     const [text, setText] = useState('');
 
-    const [translation, setTranslation] = useState("")
+    // Retrieve user session
 
+    const [session, setSession] = useState()
+
+    /*useEffect(() => {
+        supabase.auth.getSession().then(({ data: { session } }) => {
+        setSession(session)
+        })
+
+        supabase.auth.onAuthStateChange((_event, session) => {
+        setSession(session)
+        })
+    }, [])
+
+    // Update words in backend
+
+    async function saveWord() {
+        console.log("user is ", session.user.id)
+
+        console.log("userWords is ", userWords)
+
+        if (langCode === "ko") {
+            const { error } = await supabase
+            .from('userData')
+            .update({ 
+                wordsKo: userWords
+                }
+            ).eq('user', session.user.id)
+            if (error) alert(error.message)
+          }
+        if (langCode === "es") {
+            console.log("creating new spanish word")            
+            const { error } = await supabase
+            .from('profiles')
+            .update({ wordsEs: userWords})
+            .eq('id', session.user.id)
+            if (error) alert(error.message)
+        }        
+    } */
+
+    // Adds the word on button press
     const addWord = async (word) => {
-            console.log("userWords is", userWords)
-            let id = userWords.length
-            console.log("ID is: ", id)
-            let transTemp = await googleTranslateWord(word, langCode, setTranslation)
-            setTranslation(transTemp)
-            let wordToAdd = {id: id, word: translation, type:type, translation: word}
+            let id = userWords.length + 100000 // makes sure IDs do not clash with preloaded words
+            let translation = await googleTranslateWord(word, langCode)
+            let wordToAdd = {id: id, word: translation, type:type, translation: word} 
             setUserWords(userWords => [...userWords, wordToAdd]);
+            // saveWord();
             setModalVisible(false)
     }
+
+    
 
     return (
         <View>

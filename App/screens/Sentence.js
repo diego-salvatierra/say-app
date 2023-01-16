@@ -6,12 +6,13 @@ import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import SentenceWord from '../components/SentenceWord';
 import SaveSentence from '../components/SaveSentence';
 import AnalyzeWord from '../components/AnalyzeWord';
+import Refresh from '../../assets/Refresh.svg';
 
 const Sentence = ({ words, setWords, forward, setForward, translations, setTranslations, lang, langCode}) => {
 
     // Set instructions and sentence placeholder
 
-    const [text, setText] = useState("Drag the words to build your sentence")
+    const [text, setText] = useState("Drag words here to build your sentence:")
 
     // Set translation placeholder
     const [sentenceEn, setSentenceEn] = useState(null)
@@ -72,7 +73,13 @@ const Sentence = ({ words, setWords, forward, setForward, translations, setTrans
             flex: 1,
             flexDirection: 'row',
             justifyContent: 'flex-end',
-            paddingRight: 40,
+            paddingRight: 0,
+        },
+        refreshContainer: {
+            flex: 1,
+            flexDirection: 'row',
+            justifyContent: 'flex-end',
+            paddingRight: 10,
         },
         textContainer: {
             flexDirection: 'column',
@@ -135,13 +142,11 @@ const Sentence = ({ words, setWords, forward, setForward, translations, setTrans
                 }
             }
             setSavedSentence(midSentence);
-            console.log("savedSentence is ", savedSentence);
             alert("you have completed sentence ", midSentence);
         }
     }
 
     const sentenceTranslation = () => {
-        console.log("translations is", translations)
         if (translations===true) {
             return (
                 <Text style={styles.translationText}>{sentenceEn}</Text>
@@ -152,14 +157,26 @@ const Sentence = ({ words, setWords, forward, setForward, translations, setTrans
         }
     }
 
+    // reset sentence
+
+    const resetSentence = () => {
+        setSentence(sentenceInit);
+        setSentenceReady(false);
+        console.log("sentenceReady is ", sentenceReady)
+    }
+
+    // Check if sentence has been said and is understood enough to save
+    const [sentenceSaidPercentage, setSentenceSaidPercentage] = useState(0);
+
     // check whispered sentence against sentence
     useEffect(() => {
-        console.log("sentenceWhisper is ", sentenceWhisper)
+        console.log("sentenceWhisper in Sentence is ", sentenceWhisper)
         for (let i = 0; i < sentenceAnalyzed.length; i++) {
             let interimState = [...sentenceAnalyzed]
             if (sentenceWhisper.includes(sentenceAnalyzed[i].word)) {
                 interimState[i].said = true
                 setSentenceAnalyzed(interimState)
+                setSentenceSaidPercentage((sentenceSaidPercentage + 1) / sentenceAnalyzed.length)
             }
         }
       }, [sentenceWhisper])
@@ -178,11 +195,7 @@ const Sentence = ({ words, setWords, forward, setForward, translations, setTrans
             </View>
         )
     }
-
-    useEffect( () => {
-        console.log("rerendering sentenceAnalyzed", sentenceAnalyzed)
-    }, [sentenceAnalyzed])
-
+    
     // set Text based on whispered
 
     const setWhispered = () => {
@@ -214,6 +227,8 @@ const Sentence = ({ words, setWords, forward, setForward, translations, setTrans
                         langCode={langCode}
                         sentenceAnalyzed={sentenceAnalyzed}
                         setSentenceAnalyzed={setSentenceAnalyzed}
+                        sentenceSaidPercentage={sentenceSaidPercentage}
+                        sentenceReady={sentenceReady}
                         />
                 </View>
                 <View style={styles.switchContainer}>
@@ -222,7 +237,12 @@ const Sentence = ({ words, setWords, forward, setForward, translations, setTrans
                         color={'#FFC107'}
                         onValueChange={(value) => setTranslations(value)}
                     />
-                </View>              
+                </View> 
+                <View style={styles.refreshContainer}>
+                    <TouchableOpacity onPress={() => resetSentence()}>
+                        <Refresh/>
+                    </TouchableOpacity>    
+                </View>             
             </View>
             <View style={styles.textContainer}>
                 {setWhispered()}

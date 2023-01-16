@@ -5,7 +5,7 @@ import { supabase, supabaseUrl} from '../lib/supabase';
 import googleTranslate from '../lib/googleTranslate';
 
 
-const SaveButton = ({sentence, savedSentence, sentenceChecked, setSentenceChecked, sentenceEn, langCode}) => {
+const SaveButton = ({sentence, savedSentence, sentenceChecked, setSentenceChecked, sentenceEn, langCode, sentenceSaidPercentage}) => {
 
     // Retrieve user session
 
@@ -41,7 +41,7 @@ const SaveButton = ({sentence, savedSentence, sentenceChecked, setSentenceChecke
         setSentenceChecked(false)
     }
 
-    if (sentenceChecked===true) {
+    if (sentenceChecked===true && sentenceSaidPercentage>.1) { // Allow save if sentence is checked and user has said at least 10% of the sentence
         return (
             <Button buttonStyle={{ backgroundColor: '#FFC107' }} onPress={saveSentence}>Save</Button>
         )

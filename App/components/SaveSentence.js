@@ -35,18 +35,20 @@ const SaveSentence = ({ sentence,
                         langCode,
                         sentenceAnalyzed,
                         setSentenceAnalyzed,
+                        sentenceSaidPercentage,
+                        sentenceReady
                     }) => {
 
     /*useEffect(() => {
             alert("Your sentence is " + savedSentence)
     })*/
 
-    console.log("going into READY, sentence is ", sentence)
-
     // state for keeping track of sentence building process
-    const [sentenceReady, setSentenceReady] = useState(false);
+    const [sentenceComplete, setSentenceComplete] = useState(false);
     const [savedSentence, setSavedSentence] = useState("");
     const [sentenceChecked, setSentenceChecked] = useState(false);
+
+    // check to see if sentence is complete
     
     const sentenceTest = () => {
         // check to see three main boxes are full
@@ -55,15 +57,19 @@ const SaveSentence = ({ sentence,
         (sentence.some((element) => (element.type==="subject") && (element.id >= 0))))
         {
             console.log("sentence is complete")
-            setSentenceReady(true);
+            setSentenceComplete(true);
         }
         else {
+            setSentenceComplete(false);
+            setSentenceChecked(false);
             console.log("you are missing words")
+            setText("Drag words here to build your sentence:");
+            setSentenceEn("");
         }
     }
     
     const concatSentence = () => {
-        if (sentenceReady===true) {
+        if (sentenceComplete===true) {
             var midSentence = "";
             for (let i = 0; i < sentence.length; i++) {
                 if (sentence[i].id >= 0) {
@@ -82,14 +88,14 @@ const SaveSentence = ({ sentence,
 
     let sentenceFix
 
-    if (sentenceReady===false) {
+    if (sentenceComplete===false) {
         sentenceFix = 
             <View>
                 <Button buttonStyle={{ backgroundColor: '#B7B7B7' }} onPress={ () => {alert("Add a few more words :) ") } }>Ready</Button>
             </View>
     }
 
-    if (sentenceReady===true) {
+    if (sentenceComplete===true) {
         sentenceFix = <SentenceFixer 
                         sentence={sentence} 
                         setText={setText} 
@@ -115,7 +121,7 @@ const SaveSentence = ({ sentence,
     }
 
     if (sentenceChecked===true) {
-        sayButton = <SayWhisper sentenceWhisper={sentenceWhisper} setSentenceWhisper={setSentenceWhisper}/>
+        sayButton = <SayWhisper sentenceWhisper={sentenceWhisper} setSentenceWhisper={setSentenceWhisper} langCode={langCode}/>
     }
 
     return (
@@ -128,6 +134,7 @@ const SaveSentence = ({ sentence,
                 setSentenceChecked={setSentenceChecked}
                 sentenceEn={sentenceEn}
                 langCode={langCode}
+                sentenceSaidPercentage={sentenceSaidPercentage}
             />
             { sayButton }
         </View>

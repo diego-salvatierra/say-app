@@ -42,7 +42,11 @@ const SentenceFixer = ({ sentence,
 
     console.log("sentenceFixInit is ", sentenceFixInit)
 
-    const [sentenceInput, setSentenceInput] = useState(sentenceFixInit); 
+    const [sentenceInput, setSentenceInput] = useState();
+    
+    useEffect(() => {
+      setSentenceInput(sentenceFixInit)
+    }, [sentenceFixInit])
   
     console.log("sentenceInput is ", sentenceInput)
 

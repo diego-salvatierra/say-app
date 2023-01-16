@@ -99,7 +99,7 @@ const PAGE_WIDTH = Dimensions.get('window').width;
 /// Login flow - simple DONE
 /// Fix hamburger menu DONE
 /// Fix home layout DONE
-/// Login flow - context TODAY
+/// Login flow - context 
 /// BUG: Login reset DONE
 /// BUG: Fix transcription language
 /// Fix button order, Save at the end upon successful Say!, Ready in gray at first
@@ -108,7 +108,8 @@ const PAGE_WIDTH = Dimensions.get('window').width;
 /// Eliminate audio recording alert DONE
 /// Unfilled boxes styling 
 /// Wordset generation
-/// Add words TODAY
+/// Add words DONE
+/// User list of words with delete TODAY
 /// Different sentence structures
 /// Leveling and phrasebook completion
 /// GPT Chatbot

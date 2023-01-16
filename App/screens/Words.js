@@ -10,6 +10,8 @@ import WordMenu from '../components/WordMenu';
 import Header from '../components/Header';
 import { LinearGradient } from 'expo-linear-gradient'
 import AddWord from '../components/AddWord';
+import { supabase } from '../lib/supabase';
+
 
 const PAGE_WIDTH = Dimensions.get('window').width;
 const PAGE_HEIGHT = Dimensions.get('window').height;
@@ -86,16 +88,88 @@ export default ({ route }) => {
     const lang = route.params.lang;
     const langCode = route.params.langCode;
 
-    //console.log("word is ", words[0])
+    // Load user words and set up state for it
 
-    // set up state for user adding words
     const [userWords, setUserWords] = useState([])
+
+    // Retrieve session
+
+  const [session, setSession] = useState()
+
+  useEffect(() => {
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      setSession(session)
+    })
+
+    supabase.auth.onAuthStateChange((_event, session) => {
+      setSession(session)
+    })
+  }, [])
+
+  // Fetch words based on session
+
+  let wordsLang
+
+  if (lang === "ko") {
+    wordsLang = 'wordsKo'
+  }
+
+  if (lang === "es") {
+    wordsLang = 'wordsEs'
+  }
+
+  useEffect(() => {
+    const fetchWords = async () => {
+        if (session) {
+            const { data, error } = await supabase
+            .from('userData')
+            .select(wordsLang)
+            .eq('user', session.user.id)
+        
+            if (error) alert(error.message)
+        
+            if (data) {
+                setUserWords(data)
+            }
+        }
+    }
+
+    fetchWords()
+  }, [session])
+
+  // update words
+
+  // Update words in backend
+
+  async function saveWord() {
+    console.log("user is ", session.user.id)
+
+    console.log("userWords is ", userWords)
+
+    if (langCode === "ko") {
+        const { error } = await supabase
+        .from('userData')
+        .update({ 
+            wordsKo: userWords
+            }
+        ).eq('user', session.user.id)
+        if (error) alert(error.message)
+      }
+    if (langCode === "es") {
+        console.log("creating new spanish word")            
+        const { error } = await supabase
+        .from('profiles')
+        .update({ wordsEs: userWords})
+        .eq('id', session.user.id)
+        if (error) alert(error.message)
+    }        
+} 
+
+saveWord()
 
     // setup tab navigation
 
     const Tab = createMaterialTopTabNavigator();
-
-    console.log("screen is ", Tab.Screen.name)
 
     // create word tab sliders filtered by type
 
@@ -115,6 +189,8 @@ export default ({ route }) => {
         <View>
             <DraxScrollView contentContainerStyle={styles.wordContainer}>
                 <AddWord type="verb" setUserWords={setUserWords} userWords={userWords} langCode={langCode}/>
+                {userWords.filter ? userWords.filter(obj => {return obj.type === "verb"})
+                .map((word) => <DraggableWord key = {word.id} word={word} translations={translations}/>) : null}
                 {words.filter(obj => {return obj.type === "verb"})
                 .map((word) => <DraggableWord key = {word.id} word={word} translations={translations}/>)}
             </DraxScrollView>
@@ -125,6 +201,8 @@ export default ({ route }) => {
         <View>
             <DraxScrollView contentContainerStyle={styles.wordContainer}>
                 <AddWord type="adjective" setUserWords={setUserWords} userWords={userWords} langCode={langCode}/>
+                {userWords.filter ? userWords.filter(obj => {return obj.type === "adjective"})
+                .map((word) => <DraggableWord key = {word.id} word={word} translations={translations}/>) : null}
                 {words.filter(obj => {return obj.type === "adjective"})
                 .map((word) => <DraggableWord key = {word.id} word={word} translations={translations}/>)}
             </DraxScrollView>
@@ -134,7 +212,9 @@ export default ({ route }) => {
     const SubjectRoute = () => (
         <View>
             <DraxScrollView contentContainerStyle={styles.wordContainer}>
-                <AddWord type="adjective" setUserWords={setUserWords} userWords={userWords} langCode={langCode}/>
+                <AddWord type="subject" setUserWords={setUserWords} userWords={userWords} langCode={langCode}/>
+                {userWords.filter ? userWords.filter(obj => {return obj.type === "subject"})
+                .map((word) => <DraggableWord key = {word.id} word={word} translations={translations}/>) : null}
                 {words.filter(obj => {return obj.type === "subject"})
                 .map((word) => <DraggableWord key = {word.id} word={word} translations={translations}/>)}
             </DraxScrollView>

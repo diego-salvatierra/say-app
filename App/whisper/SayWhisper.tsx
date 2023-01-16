@@ -11,9 +11,11 @@ import FormData from "form-data";
 import axios from "axios";
 import Mode from './Mode';
 import TranscribedOutput from "./TranscribeOutput";
+import * as FileSystem from 'expo-file-system';
 
-export default ({sentenceWhisper, setSentenceWhisper}) => {
-  console.log("sentenceWhisper is ", sentenceWhisper)
+
+export default ({sentenceWhisper, setSentenceWhisper, langCode}) => {
+  console.log("sentenceWhisper First is ", sentenceWhisper)
   const [recording, setRecording] = React.useState(false as any);
   const [recordingDone, setRecordingDone] = React.useState(false);
   const [recordings, setRecordings] = React.useState([]);
@@ -161,28 +163,29 @@ export default ({sentenceWhisper, setSentenceWhisper}) => {
           playsInSilentModeIOS: true,
         });
         // alert("Starting recording..");
-        const RECORDING_OPTIONS_PRESET_HIGH_QUALITY: any = {
+        const RECORDING_OPTIONS_PRESET_LOW_QUALITY: any = {
           android: {
             extension: ".mp4",
             outputFormat: Audio.RECORDING_OPTION_ANDROID_OUTPUT_FORMAT_MPEG_4,
             audioEncoder: Audio.RECORDING_OPTION_ANDROID_AUDIO_ENCODER_AMR_NB,
-            sampleRate: 44100,
+            sampleRate: 10000,
             numberOfChannels: 2,
-            bitRate: 128000,
+            bitRate: 3000,
           },
           ios: {
             extension: ".wav",
-            audioQuality: Audio.RECORDING_OPTION_IOS_AUDIO_QUALITY_MIN,
-            sampleRate: 44100,
+            audioQuality: 0,
+            //audioQuality: IOSAudioQuality.MIN,
+            sampleRate: 44000,
             numberOfChannels: 2,
-            bitRate: 128000,
+            bitRate: 12000,
             linearPCMBitDepth: 16,
             linearPCMIsBigEndian: false,
             linearPCMIsFloat: false,
           },
         };
         const { recording }: any = await Audio.Recording.createAsync(
-          RECORDING_OPTIONS_PRESET_HIGH_QUALITY
+          RECORDING_OPTIONS_PRESET_LOW_QUALITY
         );
         setRecording(recording);
         console.log("Recording started");
@@ -206,6 +209,11 @@ export default ({sentenceWhisper, setSentenceWhisper}) => {
     console.log("recording is ", recording);
     await recording.stopAndUnloadAsync();
     const uri = recording.getURI();
+    const getFileSize = async uri => {
+      let fileInfo = await FileSystem.getInfoAsync(uri)
+      console.log("size is ", fileInfo.size)
+    };
+    getFileSize(uri);
     let updatedRecordings = [...recordings] as any;
     const { sound, status } = await recording.createNewLoadedSoundAsync();
     updatedRecordings.push({
@@ -262,7 +270,7 @@ export default ({sentenceWhisper, setSentenceWhisper}) => {
     const filename = uri.split("/").pop();
     setLoading(true);
     const formData: any = new FormData();
-    formData.append("language", "ko");
+    formData.append("language", langCode);
     formData.append("model_size", "small");
     formData.append(
       "audio_data",
@@ -275,7 +283,7 @@ export default ({sentenceWhisper, setSentenceWhisper}) => {
     );
     console.log("formData sent is", formData)
     axios({
-      url: "https://8886-138-84-33-183.sa.ngrok.io/transcribe", // IMPORTANT! must equal current ngrok server
+      url: "https://backendsay-wkdnx77abq-uw.a.run.app/transcribe", // IMPORTANT! must equal current server
       method: "POST",
       data: formData,
       headers: {
@@ -290,7 +298,7 @@ export default ({sentenceWhisper, setSentenceWhisper}) => {
         setIsTranscribing(false);
         setRecordingDone(false)
         setSentenceWhisper(response.data) // Sets the sentence check to be shown
-        console.log("sentenceWhisper is ", sentenceWhisper)
+        console.log("sentenceWhisper in Response is ", sentenceWhisper)
         /*intervalRef.current = setInterval(
           transcribeInterim,
           transcribeTimeout * 1000
