@@ -138,6 +138,15 @@ const PAGE_WIDTH = Dimensions.get('window').width;
 /// react-native-drax
 /// html-entities
 
+/// Say it! Thinks this is to listen to it. Wants to listen to it before you say it.
+/// Add words is important. Way too many words, don't want to deal with it.
+//// Half as many words perhaps?
+/// Phrasebook BUG
+/// Reset instructions BUG
+/// Say and Save should be flipped
+/// Move forward when tap on empty word button
+/// *Need to add the sentence read out loud!*
+
 const Drawer = createDrawerNavigator();
 
 // add linear gradient to navigation container 
