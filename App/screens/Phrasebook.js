@@ -17,7 +17,6 @@ import { Buffer } from "buffer";
 import Header from '../components/Header';
 import { DraxProvider, DraxScrollView } from 'react-native-drax';
 import SentenceCard from '../components/SentenceCard';
-import { border } from 'native-base/lib/typescript/theme/styled-system';
 
 
 const PAGE_HEIGHT = Dimensions.get('window').height;
