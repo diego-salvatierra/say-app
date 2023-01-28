@@ -71,7 +71,7 @@ module.exports = {
       'react-native$': 'react-native-web',
       'native-base' : 'native-base-web',
 		  'react/lib/ReactNativePropRegistry': 'react-native-web/dist/modules/ReactNativePropRegistry',
-      'react-native-svg': 'react-native-svg-web'
+      'react-native-svg$': 'react-native-svg-web'
     },
     // If you're working on a multi-platform React Native app, web-specific
     // module implementations should be written in files using the extension
