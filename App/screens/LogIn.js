@@ -118,6 +118,8 @@ const LogIn = ({navigation, route}) => {
       password: password,
     })
 
+    navigation.navigate('Home')
+
     if (error) alert(error.message)
     setLoading(false)
   }
